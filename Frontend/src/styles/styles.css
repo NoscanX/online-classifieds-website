@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@100;400;700&display=swap');
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container-wrapper {
+    /* outline: 2px solid blue; */
+    min-height: 100vh;
+    text-align: center; 
+    background-color: hsl(210, 6%, 87%);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

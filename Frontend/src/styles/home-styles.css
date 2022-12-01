@@ -1,0 +1,130 @@
+.home-container {
+    /* background-color: hsl(210, 6%, 87%); */
+    background-color: hsl(210, 17%, 98%);
+    padding: 2rem 0;
+    width: 100%;
+    /* outline: 2px solid blue; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-wrapper {
+    text-align: center;
+}
+
+.bs-categories-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+    font-weight: 700;
+}
+
+.category-container a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.category-popover a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1rem;
+}
+
+.icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categories-filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    padding: 1rem 2rem;
+}
+
+.ad-list-render-container {
+    padding: 1rem 2rem;
+}
+
+.list-items-wrap ul {
+    padding: 0;
+}
+
+.list-items-wrap a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.list-items-wrap li:hover {
+    outline: 2px solid hsl(210, 17%, 75%);
+    border-radius: 10px;
+    /* transition: .2s ease-in; */
+    
+}
+
+.list-items-wrap li {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    background-color: hsl(210, 17%, 90%);
+    margin: 1rem 0;
+    padding: .5rem;
+    height: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ad-list-item-img {
+    width: 20%;
+    position: relative;
+}
+
+.ad-list-item-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.ad-list-item-name {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ad-list-item-price {
+    width: 20%;
+    text-align: right;
+    margin-right: 1rem;
+}
+
+.ad-list-item-price h5{
+    font-weight: bold;
+}
+
+.ad-list-item-name,
+.ad-list-item-img,
+.ad-list-item-price {
+    margin: .5rem;
+}
+
+.auction-title {
+    height: 80%;
+}
+
+.auction-user {
+    color: initial;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    font-size: .9rem;
+}

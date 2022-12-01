@@ -1,0 +1,10 @@
+.add-advertising-form-container{
+    display: flex;
+    justify-content: center;
+    background-color: hsl(210, 17%, 98%);
+    min-height: 100vh;
+}
+
+.add-advertising-form-container h2{
+    text-align: center;
+}

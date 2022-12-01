@@ -1,0 +1,101 @@
+.user-ads-container{
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    background-color: hsl(210, 17%, 98%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.user-ads-container h2{
+    text-align: center;
+}
+
+.user-ads-list-items-wrap ul {
+    padding: 0;
+}
+
+.user-ads-list-items-wrap li:hover {
+    outline: 2px solid hsl(210, 17%, 75%);
+    border-radius: 10px;
+    /* transition: .2s ease-in; */
+}
+
+.user-ads-list-items-wrap li {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    background-color: hsl(210, 17%, 90%);
+    margin: 1rem 0;
+    padding: .5rem;
+    height: 200px;
+    border-radius: 10px;
+    /* cursor: pointer; */
+}
+
+.user-ads-list-item-img {
+    width: 20%;
+    position: relative;
+}
+
+.user-ads-list-item-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.user-ads-list-item-name {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-ads-list-item-price {
+    width: 20%;
+    text-align: right;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.user-ads-list-item-price h5{
+    font-weight: bold;
+}
+
+.user-ads-list-item-name,
+.user-ads-list-item-img,
+.user-ads-list-item-price {
+    margin: .5rem;
+}
+
+.user-ads-auction-title {
+    height: 70%;
+}
+
+.user-ads-auction-user {
+    color: initial;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    font-size: .9rem;
+}
+
+.delete-box {
+    font-size: .9rem;
+}
+
+.delete-box p {
+    margin: 0;
+}
+
+.trash-icon {
+    color: hsl(215.8, 98.4%, 52.2%);
+}
+
+.trash-icon:hover {
+    color: hsl(215.6, 90.3%, 44.3%);
+    cursor: pointer;
+}
