@@ -3,8 +3,7 @@ package com.example.backend.advertisements;
 import com.example.backend.categories.Categories;
 import com.example.backend.images.Images;
 import com.example.backend.users.UserAccount;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +12,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "advertisements")
 public class Advertisements {
     @Id
@@ -34,7 +36,7 @@ public class Advertisements {
     private Boolean isBought;
 
     @OneToMany(mappedBy = "advertisements", orphanRemoval = true)
-    private List<Images> imageses = new ArrayList<>();
+    private List<Images> images = new ArrayList<>();
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "categories_id", nullable = false)

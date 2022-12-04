@@ -1,7 +1,6 @@
 package com.example.backend.ratings;
 
 import com.example.backend.purchases.Purchases;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 

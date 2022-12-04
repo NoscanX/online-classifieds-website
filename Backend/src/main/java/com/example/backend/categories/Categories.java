@@ -1,6 +1,5 @@
 package com.example.backend.categories;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,10 +16,10 @@ public class Categories {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "parrent_category_name", nullable = false)
-    private String parrentCategoryName;
+    @Column(name = "parent_category_name", nullable = false)
+    private String parentCategoryName;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "subcategory_name", nullable = false)
+    private String subcategoryName;
 
 }

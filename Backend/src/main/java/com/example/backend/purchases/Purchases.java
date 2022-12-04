@@ -2,7 +2,6 @@ package com.example.backend.purchases;
 
 import com.example.backend.advertisements.Advertisements;
 import com.example.backend.users.UserAccount;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 

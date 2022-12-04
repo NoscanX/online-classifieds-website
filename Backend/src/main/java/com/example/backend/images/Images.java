@@ -20,6 +20,9 @@ public class Images {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "image", nullable = false, unique = true)
+    private String image;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "advertisements_id", nullable = false)
     private Advertisements advertisements;
