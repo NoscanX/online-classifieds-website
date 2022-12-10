@@ -14,4 +14,6 @@ public class UserAccountDTO {
     private String address;
     private String name;
     private Double userRating;
+    private UserRole userRole;
+    private Boolean isActive;
 }

@@ -37,18 +37,18 @@ const RegistrationModal = (props:any) => {
             <Form.Label>Hasło</Form.Label>
             <Form.Control required type="password" placeholder="Hasło"/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="registrationNameInput">
-            <Form.Label>Imię</Form.Label>
-            <Form.Control required type="text" placeholder="Imię"/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="registrationCityInput">
-            <Form.Label>Miasto</Form.Label>
-            <Form.Control required type="text" placeholder="Miasto"/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="registrationAdressInput">
-            <Form.Label>Adres</Form.Label>
-            <Form.Control required type="text" placeholder="Adres"/>
-          </Form.Group>
+          {/*<Form.Group className="mb-3" controlId="registrationNameInput">*/}
+          {/*  <Form.Label>Imię</Form.Label>*/}
+          {/*  <Form.Control required type="text" placeholder="Imię"/>*/}
+          {/*</Form.Group>*/}
+          {/*<Form.Group className="mb-3" controlId="registrationCityInput">*/}
+          {/*  <Form.Label>Miasto</Form.Label>*/}
+          {/*  <Form.Control required type="text" placeholder="Miasto"/>*/}
+          {/*</Form.Group>*/}
+          {/*<Form.Group className="mb-3" controlId="registrationAdressInput">*/}
+          {/*  <Form.Label>Adres</Form.Label>*/}
+          {/*  <Form.Control required type="text" placeholder="Adres"/>*/}
+          {/*</Form.Group>*/}
           <Button type='submit'>Zarejestruj</Button>
         </Form>
       </Modal.Body>

@@ -1,8 +1,11 @@
 package com.example.backend.users;
 
+import com.example.backend.advertisements.Advertisements;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,13 +27,13 @@ public class UserAccount {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "city", nullable = false)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -40,4 +43,10 @@ public class UserAccount {
     @Column(name = "user_rating")
     private Double userRating;
 
+    @Column(name = "is_account_active", nullable = false)
+    private Boolean isAccountActive = false;
+
+    //czy to potrzebne?
+    @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
+    private List<Advertisements> advertisements = new ArrayList<>();
 }

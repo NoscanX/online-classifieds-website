@@ -1,4 +1,83 @@
 package com.example.backend.advertisements;
 
+import com.example.backend.users.UserAccount;
+import com.example.backend.users.UserAccountRepository;
+import com.example.backend.users.UserWrapper;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@Transactional
+@AllArgsConstructor
 public class AdvertisementsService {
+    private final AdvertisementsRepository advertisementsRepository;
+    private final AdvertisementsMapper advertisementsMapper;
+    private final UserAccountRepository userAccountRepository;
+
+//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO) {
+//        UserAccount userAccount = userAccountRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+//
+//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
+//        advertisements.setUserAccount(userAccount);
+//
+//        advertisementsRepository.save(advertisements);
+//    }
+
+    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO, UserWrapper userWrapper) {
+        UserAccount userAccount = userAccountRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
+        advertisements.setUserAccount(userWrapper.getUserAccount());
+        advertisements.setName(advertisements.getName());
+        advertisements.setDescription(advertisements.getDescription());
+        advertisements.setPrice(advertisements.getPrice());
+        advertisements.setImage(advertisements.getImage());
+        advertisements.setIsAdvertisementActive(true);
+        advertisements.setAdvertisementDate(Timestamp.from(Instant.now()).toLocalDateTime());
+        //advertisements.setUserAccount(userAccount);
+        advertisementsRepository.save(advertisements);
+    }
+
+    public List<AdvertisementsDTO> getAllAdvertisements() {
+        return advertisementsRepository.findAll()
+                .stream()
+                .map(advertisementsMapper::mapEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void updateAdvertisement(AdvertisementsDTO advertisementsDTO) {
+        Advertisements advertisements = advertisementsRepository.findById(advertisementsDTO.getId()).orElseThrow(() -> new UsernameNotFoundException("Ad not found"));
+        advertisements.setName(advertisementsDTO.getName());
+        advertisements.setDescription(advertisementsDTO.getDescription());
+        advertisements.setPrice(advertisementsDTO.getPrice());
+        advertisements.setImage(advertisementsDTO.getImage());
+        //czy ta data ok?
+        advertisements.setAdvertisementDate(Timestamp.from(Instant.now()).toLocalDateTime());
+        advertisementsRepository.save(advertisements);
+    }
+
+    public void deleteAdvertisementById(Long advertisementsId) {
+        Advertisements advertisements = advertisementsRepository.findById(advertisementsId).orElseThrow(() -> new UsernameNotFoundException("Not found"));
+        advertisementsRepository.delete(advertisements);
+    }
+
+    public void deleteAdvertisements() {
+        advertisementsRepository.deleteAll();
+    }
+
+    public void updateAdvertisementState(Long id, Boolean isActive) {
+        Advertisements advertisements = advertisementsRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Not found"));
+        advertisements.setIsAdvertisementActive(isActive);
+        advertisementsRepository.save(advertisements);
+    }
 }

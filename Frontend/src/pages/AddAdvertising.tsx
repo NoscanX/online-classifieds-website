@@ -80,8 +80,8 @@ const AddAdvertising = () => {
           />
         </Form.Group>
         <Form.Group controlId="formFileMultiple" className="mb-3">
-          <Form.Label>Prześlij zdjęcia do ogłoszenia</Form.Label>
-          <Form.Control required accept=".png,.jpg,.jpeg" type="file" multiple />
+          <Form.Label>Prześlij zdjęcie do ogłoszenia</Form.Label>
+          <Form.Control required accept=".png,.jpg,.jpeg" type="file"/>
         </Form.Group>
         <Button type="submit">Wystaw ofertę</Button>
       </Form>

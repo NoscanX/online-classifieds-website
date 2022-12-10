@@ -10,7 +10,7 @@ public class AdvertisementsMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
-                .isBought(false)
+                .isAdvertisementActive(dto.getIsAdvertisementActive())
                 .build();
     }
 
@@ -19,7 +19,7 @@ public class AdvertisementsMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
-                .isBought(false)
+                .isAdvertisementActive(dto.getIsAdvertisementActive())
                 .build();
     }
 }

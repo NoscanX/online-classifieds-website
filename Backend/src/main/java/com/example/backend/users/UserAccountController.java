@@ -8,28 +8,42 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Service
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/user")
 public class UserAccountController {
     private final UserAccountService userAccountService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody UserRegisterRequest request) {
         userAccountService.registerUser(request);
 
         return ResponseEntity.ok("Register OK.");
     }
 
-    @GetMapping("/all")
+    @GetMapping("/getAllUsers")
     public ResponseEntity<List<UserAccountDTO>> getAllUsers() {
         return ResponseEntity.ok(userAccountService.getAllUsers());
     }
 
-    @PostMapping("/{id}/advertisement")
-    public ResponseEntity<?> addAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementsDTO) {
-        userAccountService.addAdvertisement(id, advertisementsDTO);
-        return ResponseEntity.ok("Dodano ogloszenie");
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<UserAccountDTO> getUserDetails(@PathVariable(value = "id") Long id) {
+        UserAccount userAccount = userAccountService.getUserAccountById(id);
+        UserAccountDTO userAccountDTO = userAccountService.convertUserAccountToUserAccountDTO(userAccount);
+        return ResponseEntity.ok(userAccountDTO);
     }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<?> updateUser(@RequestBody UserAccountDTO userAccountDTO) {
+        userAccountService.updateUserAddress(userAccountDTO);
+        return ResponseEntity.ok("Address upddate ok");
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userAccountService.deleteUserAccountById(id);
+    }
+    //do AdControllera /ad/new dodawanie updateowanie
+
+
 }

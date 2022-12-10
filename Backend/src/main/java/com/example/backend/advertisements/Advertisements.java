@@ -1,13 +1,11 @@
 package com.example.backend.advertisements;
 
 import com.example.backend.categories.Categories;
-import com.example.backend.images.Images;
 import com.example.backend.users.UserAccount;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,11 +30,12 @@ public class Advertisements {
     @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "is_bought")
-    private Boolean isBought;
+    @Lob
+    @Column(name = "image", nullable = false)
+    private String image;
 
-    @OneToMany(mappedBy = "advertisements", orphanRemoval = true)
-    private List<Images> images = new ArrayList<>();
+    @Column(name = "advertisement_date", nullable = false)
+    private LocalDateTime advertisementDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "categories_id", nullable = false)
@@ -45,5 +44,8 @@ public class Advertisements {
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_account_id", nullable = false)
     private UserAccount userAccount;
+
+    @Column(name = "is_advertisement_active", nullable = false)
+    private Boolean isAdvertisementActive = true;
 
 }
