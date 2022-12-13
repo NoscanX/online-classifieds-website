@@ -1,23 +1,24 @@
 export enum USER_ROLE {
     ADMIN = 'ADMIN',
-    USER = 'USER'
+    USER = 'USER',
+    GUEST = 'GUEST'
 }
 
 export interface RegistrationTypes {
-    emailRegistration: string,
-    passwordRegistration: string,
-    nameRegistration: string,
-    cityRegistration: string,
-    addressRegistration: string,
-    roleRegistration: USER_ROLE
+    email: string,
+    password: string,
+    name: string,
+    // cityRegistration: string,
+    // addressRegistration: string,
+    // roleRegistration: USER_ROLE
 }
 
 export interface RegistrationValidationTypes {
     emailRegistrationValidation: boolean,
     passwordRegistrationValidation: boolean,
     nameRegistrationValidation: boolean,
-    cityRegistrationValidation: boolean,
-    addressRegistrationValidation: boolean
+    // cityRegistrationValidation: boolean,
+    // addressRegistrationValidation: boolean
 }
 
 export interface LoginTypes {
