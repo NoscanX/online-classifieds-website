@@ -1,6 +1,5 @@
 package com.example.backend.advertisements;
 
-import com.example.backend.images.ImagesDTO;
 import org.springframework.stereotype.Component;
 
 @Component

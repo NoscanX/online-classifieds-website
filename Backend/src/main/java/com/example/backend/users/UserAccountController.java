@@ -15,7 +15,7 @@ public class UserAccountController {
     private final UserAccountService userAccountService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> saveUser(@RequestBody UserRegisterRequest request) {
+    public ResponseEntity<String> saveUser(@RequestBody UserRegisterRequest request) {
         userAccountService.registerUser(request);
 
         return ResponseEntity.ok("Register OK.");

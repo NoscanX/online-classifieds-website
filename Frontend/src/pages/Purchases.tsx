@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/user-purchases-styles.css";
-import {Rating} from '@mui/material'
+import { Rating } from "@mui/material";
 
 const Purchases = () => {
   const [value, setValue] = React.useState<number | null>(0);

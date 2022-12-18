@@ -2,8 +2,7 @@ package com.example.backend.purchases;
 
 import com.example.backend.advertisements.Advertisements;
 import com.example.backend.users.UserAccount;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "purchases")
 public class Purchases {
     @Id

@@ -4,7 +4,7 @@ const PriceFilter = () => {
   return (
     <>
       <div style={{ width: "40%" }}>
-      <h4>Szukaj</h4>
+        <h4>Szukaj</h4>
         <Form className="d-flex" style={{ marginRight: "3rem" }}>
           <Form.Control
             type="search"

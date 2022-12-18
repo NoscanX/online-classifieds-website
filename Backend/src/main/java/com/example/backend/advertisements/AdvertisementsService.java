@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class AdvertisementsService {
         advertisements.setPrice(advertisements.getPrice());
         advertisements.setImage(advertisements.getImage());
         advertisements.setIsAdvertisementActive(true);
-        advertisements.setAdvertisementDate(Timestamp.from(Instant.now()).toLocalDateTime());
+        advertisements.setAdvertisementDate(LocalDateTime.now());
         //advertisements.setUserAccount(userAccount);
         advertisementsRepository.save(advertisements);
     }
@@ -62,7 +63,7 @@ public class AdvertisementsService {
         advertisements.setPrice(advertisementsDTO.getPrice());
         advertisements.setImage(advertisementsDTO.getImage());
         //czy ta data ok?
-        advertisements.setAdvertisementDate(Timestamp.from(Instant.now()).toLocalDateTime());
+        advertisements.setAdvertisementDate(LocalDateTime.now());
         advertisementsRepository.save(advertisements);
     }
 
