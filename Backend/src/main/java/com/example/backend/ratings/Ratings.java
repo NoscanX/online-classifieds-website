@@ -1,14 +1,16 @@
 package com.example.backend.ratings;
 
 import com.example.backend.purchases.Purchases;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "ratings")
 public class Ratings {
     @Id
