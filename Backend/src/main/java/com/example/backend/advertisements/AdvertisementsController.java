@@ -1,5 +1,6 @@
 package com.example.backend.advertisements;
 
+import com.example.backend.users.UserAccountDTO;
 import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,16 +42,16 @@ public class AdvertisementsController {
         return ResponseEntity.ok(advertisementsService.getAllAdvertisements());
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<?> updateAdvertisement(@RequestBody AdvertisementsDTO advertisementsDTO) {
-        advertisementsService.updateAdvertisement(advertisementsDTO);
-        return ResponseEntity.ok("Update advert ok");
-    }
-
     @PutMapping("/updateAdvertisementState/{id}")
     public ResponseEntity<?> updateAdvertisementState(@PathVariable("id")Long id, @RequestParam Boolean isActive) {
         advertisementsService.updateAdvertisementState(id, isActive);
-        return ResponseEntity.ok("Update advert ok");
+        return ResponseEntity.ok("Update advert state ok");
+    }
+
+    @PutMapping("/updateAdvertisement/{id}")
+    public ResponseEntity<?> updateAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementDTO) {
+        advertisementsService.updateAdvertisementDetails(id, advertisementDTO);
+        return ResponseEntity.ok("Advert update ok");
     }
 
     @DeleteMapping("/delete/{id}")
@@ -59,7 +60,7 @@ public class AdvertisementsController {
     }
 
     @DeleteMapping("/deleteAdvertisements")
-    public void deleteReviews(){
+    public void deleteAdvertisements(){
         advertisementsService.deleteAdvertisements();
     }
 }

@@ -3,9 +3,11 @@ package com.example.backend.advertisements;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class AdvertisementsMapper {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     public Advertisements mapDTOToEntity(AdvertisementsDTO dto) {
         return Advertisements.builder()
                 .name(dto.getName())
@@ -13,7 +15,7 @@ public class AdvertisementsMapper {
                 .price(dto.getPrice())
                 .image(dto.getImage())
                 .isAdvertisementActive(dto.getIsAdvertisementActive())
-                .advertisementDate(LocalDateTime.now())
+                .advertisementDate(LocalDateTime.now().format(formatter))
                 .build();
     }
 

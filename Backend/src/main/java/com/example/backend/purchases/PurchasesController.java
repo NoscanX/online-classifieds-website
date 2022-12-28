@@ -16,16 +16,24 @@ import java.util.Optional;
 @RequestMapping("/api/v1/purchase")
 public class PurchasesController {
     private final PurchasesService purchasesService;
-    @PostMapping("/{id}")
-    public ResponseEntity<?> addPurchase(@PathVariable("id") Long id, @RequestBody PurchasesDTO purchasesDTO, Authentication authentication) {
-        UserWrapper loggedUser = Optional.ofNullable(authentication)
-                .filter(filter -> filter.getPrincipal() instanceof UserWrapper)
-                .map(Authentication::getPrincipal)
-                .map(UserWrapper.class::cast)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Add ad bad request"));
-        purchasesService.addPurchase(id, purchasesDTO, loggedUser);
+
+    @PostMapping("/{idUser}/{idAd}")
+    public ResponseEntity<?> addPurchase(@PathVariable("idUser") Long idUser,@PathVariable("idAd") Long idAd, @RequestBody PurchasesDTO purchasesDTO) {
+
+        purchasesService.addPurchase(idUser, idAd, purchasesDTO);
         return ResponseEntity.ok("Dodano ogloszenie");
     }
+
+//    @PostMapping("/{id}")
+//    public ResponseEntity<?> addPurchase(@PathVariable("id") Long id, @RequestBody PurchasesDTO purchasesDTO, Authentication authentication) {
+//        UserWrapper loggedUser = Optional.ofNullable(authentication)
+//                .filter(filter -> filter.getPrincipal() instanceof UserWrapper)
+//                .map(Authentication::getPrincipal)
+//                .map(UserWrapper.class::cast)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Add ad bad request"));
+//        purchasesService.addPurchase(id, purchasesDTO, loggedUser);
+//        return ResponseEntity.ok("Dodano ogloszenie");
+//    }
 
     @GetMapping("/getAllPurchases")
     public ResponseEntity<List<PurchasesDTO>> getAllPurchases() {

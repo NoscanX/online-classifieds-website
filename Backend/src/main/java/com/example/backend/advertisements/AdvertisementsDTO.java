@@ -18,5 +18,5 @@ public class AdvertisementsDTO {
     private Boolean isAdvertisementActive;
     private Long categoryId; //czy to potrzebne?
     private Long userId;
-    private LocalDateTime data;
+    private String data;
 }

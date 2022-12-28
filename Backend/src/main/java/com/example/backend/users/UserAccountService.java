@@ -46,13 +46,11 @@ public class UserAccountService {
         UserAccount userAccount = userAccountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         userAccount.setCity(userAccountDTO.getCity());
         userAccount.setAddress(userAccountDTO.getAddress());
-//        userAccount.setName(userAccountDTO.getName());
         userAccountRepository.save(userAccount);
     }
 
-    public void deleteUserAccountById(Long userAccountId) {
-        UserAccount userAccount = userAccountRepository.findById(userAccountId).orElseThrow(() -> new UsernameNotFoundException("Not found"));
-        userAccountRepository.delete(userAccount);
+    public void deleteUserAccountById(Long id) {
+        userAccountRepository.deleteById(id);
     }
 
 }

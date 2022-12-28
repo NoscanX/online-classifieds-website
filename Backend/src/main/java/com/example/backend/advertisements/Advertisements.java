@@ -35,7 +35,7 @@ public class Advertisements {
     private String image;
 
     @Column(name = "advertisement_date", nullable = false)
-    private LocalDateTime advertisementDate;
+    private String advertisementDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "categories_id", nullable = false)

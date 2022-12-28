@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,14 +61,14 @@ public class AdvertisementsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateAdvertisement(AdvertisementsDTO advertisementsDTO) {
-        Advertisements advertisements = advertisementsRepository.findById(advertisementsDTO.getId()).orElseThrow(() -> new UsernameNotFoundException("Ad not found"));
+    public void updateAdvertisementDetails(Long id, AdvertisementsDTO advertisementsDTO) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        Advertisements advertisements = advertisementsRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Ad not found"));
         advertisements.setName(advertisementsDTO.getName());
         advertisements.setDescription(advertisementsDTO.getDescription());
         advertisements.setPrice(advertisementsDTO.getPrice());
         advertisements.setImage(advertisementsDTO.getImage());
-        //czy ta data ok?
-        advertisements.setAdvertisementDate(LocalDateTime.now());
+        advertisements.setAdvertisementDate(LocalDateTime.now().format(formatter));
         advertisementsRepository.save(advertisements);
     }
 

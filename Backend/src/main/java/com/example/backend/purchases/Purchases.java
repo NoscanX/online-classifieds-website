@@ -26,7 +26,7 @@ public class Purchases {
     private UserAccount userAccount;
 
     @Column(name = "date", nullable = false)
-    private LocalDateTime date;
+    private String date;
 
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "advertisements_id", nullable = false)

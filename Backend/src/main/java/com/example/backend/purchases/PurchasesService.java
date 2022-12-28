@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,15 +25,30 @@ public class PurchasesService {
     private final PurchasesRepository purchasesRepository;
     private final PurchasesMapper purchasesMapper;
     private final UserAccountRepository userAccountRepository;
-    public void addPurchase(Long userId, PurchasesDTO purchasesDTO, UserWrapper userWrapper) {
+
+
+    public void addPurchase(Long userId, Long adId, PurchasesDTO purchasesDTO) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         UserAccount userAccount = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        Advertisements advertisements = advertisementsRepository.findById(adId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
         Purchases purchases = purchasesMapper.mapDTOToEntity(purchasesDTO);
-        purchases.setUserAccount(userWrapper.getUserAccount());
-        purchases.setDate(LocalDateTime.now());
-        //advertisements.setUserAccount(userAccount);
+        purchases.setUserAccount(userAccount);
+        purchases.setAdvertisements(advertisements);
+        purchases.setDate(LocalDateTime.now().format(formatter));
+        purchases.setPayment(Payment.CASH_ON_DELIVERY);
         purchasesRepository.save(purchases);
     }
+//    public void addPurchase(Long userId, PurchasesDTO purchasesDTO, UserWrapper userWrapper) {
+//        UserAccount userAccount = userAccountRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+//        Purchases purchases = purchasesMapper.mapDTOToEntity(purchasesDTO);
+//        purchases.setUserAccount(userWrapper.getUserAccount());
+//        purchases.setDate(LocalDateTime.now());
+//        //advertisements.setUserAccount(userAccount);
+//        purchasesRepository.save(purchases);
+//    }
 
     public List<PurchasesDTO> getAllPurchases() {
         return purchasesRepository.findAll()
