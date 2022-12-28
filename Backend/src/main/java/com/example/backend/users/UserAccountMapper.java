@@ -4,9 +4,12 @@ import com.example.backend.advertisements.AdvertisementsMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 @AllArgsConstructor
 public class UserAccountMapper {
+    private final AdvertisementsMapper advertisementsMapper;
     public UserAccountDTO mapEntityToDTO(UserAccount user) {
         return UserAccountDTO.builder()
                 .email(user.getEmail())
@@ -16,6 +19,7 @@ public class UserAccountMapper {
                 .userRating(user.getUserRating())
                 .userRole(user.getUserRole())
                 .isActive(user.getIsAccountActive())
+                .advertisementsList(user.getAdvertisements().stream().map(advertisementsMapper::mapEntityToDTO).collect(Collectors.toList()))
                 .build();
     }
 

@@ -2,6 +2,8 @@ package com.example.backend.advertisements;
 
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class AdvertisementsMapper {
     public Advertisements mapDTOToEntity(AdvertisementsDTO dto) {
@@ -9,7 +11,9 @@ public class AdvertisementsMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
+                .image(dto.getImage())
                 .isAdvertisementActive(dto.getIsAdvertisementActive())
+                .advertisementDate(LocalDateTime.now())
                 .build();
     }
 
@@ -18,7 +22,11 @@ public class AdvertisementsMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())
+                .image(dto.getImage())
                 .isAdvertisementActive(dto.getIsAdvertisementActive())
+                .data(dto.getAdvertisementDate())
+                .userId(dto.getUserAccount().getId())
+                .categoryId(dto.getCategories().getId())
                 .build();
     }
 }

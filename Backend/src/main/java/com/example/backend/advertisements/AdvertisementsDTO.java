@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -15,4 +17,6 @@ public class AdvertisementsDTO {
     private String image;
     private Boolean isAdvertisementActive;
     private Long categoryId; //czy to potrzebne?
+    private Long userId;
+    private LocalDateTime data;
 }

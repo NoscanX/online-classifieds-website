@@ -1,10 +1,11 @@
 package com.example.backend.categories;
 
+import com.example.backend.advertisements.AdvertisementsDTO;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -15,5 +16,10 @@ public class CategoriesController {
     @PostMapping("/addCategory")
     public void saveCategory(@RequestBody Categories categories) {
         categoriesService.addCategory(categories);
+    }
+
+    @GetMapping("/getAllCategories")
+    public ResponseEntity<List<CategoriesDTO>> getAllCategories() {
+        return ResponseEntity.ok(categoriesService.getAllCategories());
     }
 }

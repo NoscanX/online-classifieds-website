@@ -1,8 +1,11 @@
 package com.example.backend.users;
 
+import com.example.backend.advertisements.AdvertisementsDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +19,5 @@ public class UserAccountDTO {
     private Double userRating;
     private UserRole userRole;
     private Boolean isActive;
+    private List<AdvertisementsDTO> advertisementsList;
 }

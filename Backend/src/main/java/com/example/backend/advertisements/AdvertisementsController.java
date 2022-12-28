@@ -19,22 +19,22 @@ public class AdvertisementsController {
     private final AdvertisementsService advertisementsService;
 
     //logged user cos tam??
-//    @PostMapping("/{id}")
-//    public ResponseEntity<?> addAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementsDTO) {
-//        advertisementsService.addAdvertisement(id, advertisementsDTO);
-//        return ResponseEntity.ok("Dodano ogloszenie");
-//    }
-
-    @PostMapping("/{id}")
-    public ResponseEntity<?> addAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementsDTO, Authentication authentication) {
-        UserWrapper loggedUser = Optional.ofNullable(authentication)
-                .filter(filter -> filter.getPrincipal() instanceof UserWrapper)
-                .map(Authentication::getPrincipal)
-                .map(UserWrapper.class::cast)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Add ad bad request"));
-        advertisementsService.addAdvertisement(id, advertisementsDTO, loggedUser);
+    @PostMapping("/add/{idUser}/{idCat}")
+    public ResponseEntity<?> addAdvertisement(@PathVariable("idUser") Long idUser,@PathVariable("idCat") Long idCat, @RequestBody AdvertisementsDTO advertisementsDTO) {
+        advertisementsService.addAdvertisement(idUser, idCat, advertisementsDTO);
         return ResponseEntity.ok("Dodano ogloszenie");
     }
+
+//    @PostMapping("/add/{id}")
+//    public ResponseEntity<?> addAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementsDTO, Authentication authentication) {
+//        UserWrapper loggedUser = Optional.ofNullable(authentication)
+//                .filter(filter -> filter.getPrincipal() instanceof UserWrapper)
+//                .map(Authentication::getPrincipal)
+//                .map(UserWrapper.class::cast)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Add ad bad request"));
+//        advertisementsService.addAdvertisement(id, advertisementsDTO, loggedUser);
+//        return ResponseEntity.ok("Dodano ogloszenie");
+//    }
 
     @GetMapping("/getAllAdvertisements")
     public ResponseEntity<List<AdvertisementsDTO>> getAllAdvertisements() {

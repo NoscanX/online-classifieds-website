@@ -1,5 +1,7 @@
 package com.example.backend.advertisements;
 
+import com.example.backend.categories.Categories;
+import com.example.backend.categories.CategoriesRepository;
 import com.example.backend.users.UserAccount;
 import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
@@ -23,30 +25,33 @@ public class AdvertisementsService {
     private final AdvertisementsRepository advertisementsRepository;
     private final AdvertisementsMapper advertisementsMapper;
     private final UserAccountRepository userAccountRepository;
+    private final CategoriesRepository categoriesRepository;
 
-//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO) {
-//        UserAccount userAccount = userAccountRepository.findById(userId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
-//
-//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
-//        advertisements.setUserAccount(userAccount);
-//
-//        advertisementsRepository.save(advertisements);
-//    }
-
-    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO, UserWrapper userWrapper) {
+    public void addAdvertisement(Long userId, Long catId, AdvertisementsDTO advertisementsDTO) {
         UserAccount userAccount = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        Categories category = categoriesRepository.findById(catId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No cat"));
         Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
-        advertisements.setUserAccount(userWrapper.getUserAccount());
-        advertisements.setName(advertisements.getName());
-        advertisements.setDescription(advertisements.getDescription());
-        advertisements.setPrice(advertisements.getPrice());
-        advertisements.setImage(advertisements.getImage());
         advertisements.setIsAdvertisementActive(true);
-        advertisements.setAdvertisementDate(LocalDateTime.now());
+        advertisements.setUserAccount(userAccount);
+        advertisements.setCategories(category);
         advertisementsRepository.save(advertisements);
     }
+
+//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO, UserWrapper userWrapper) {
+//        UserAccount userAccount = userAccountRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
+//        advertisements.setUserAccount(userWrapper.getUserAccount());
+//        advertisements.setName(advertisements.getName());
+//        advertisements.setDescription(advertisements.getDescription());
+//        advertisements.setPrice(advertisements.getPrice());
+//        advertisements.setImage(advertisements.getImage());
+//        advertisements.setIsAdvertisementActive(true);
+//        advertisements.setAdvertisementDate(LocalDateTime.now());
+//        advertisementsRepository.save(advertisements);
+//    }
 
     public List<AdvertisementsDTO> getAllAdvertisements() {
         return advertisementsRepository.findAll()
