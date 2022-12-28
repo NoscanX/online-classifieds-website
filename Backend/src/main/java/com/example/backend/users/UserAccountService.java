@@ -21,6 +21,7 @@ public class UserAccountService {
         UserAccount userAccount = userAccountMapper.mapRegisterRequestToEntity(request);
         userAccount.setEmail(userAccount.getEmail());
         userAccount.setPassword(encoder.encode(userAccount.getPassword()));
+        userAccount.setName(userAccount.getName());
         userAccount.setUserRole(UserRole.USER);
         userAccount.setUserRating(0.0);
         userAccount.setIsAccountActive(true);
@@ -41,11 +42,11 @@ public class UserAccountService {
         return userAccountMapper.mapEntityToDTO(userAccount);
     }
 
-    public void updateUserAddress(UserAccountDTO userAccountDTO) {
-        UserAccount userAccount = userAccountRepository.findById(userAccountDTO.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public void updateUserAddress(Long id, UserAccountDTO userAccountDTO) {
+        UserAccount userAccount = userAccountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         userAccount.setCity(userAccountDTO.getCity());
         userAccount.setAddress(userAccountDTO.getAddress());
-        userAccount.setName(userAccountDTO.getName());
+//        userAccount.setName(userAccountDTO.getName());
         userAccountRepository.save(userAccount);
     }
 

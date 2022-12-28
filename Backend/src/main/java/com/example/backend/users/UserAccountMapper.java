@@ -15,6 +15,7 @@ public class UserAccountMapper {
                 .name(user.getName())
                 .userRating(user.getUserRating())
                 .userRole(user.getUserRole())
+                .isActive(user.getIsAccountActive())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class UserAccountMapper {
         return UserAccount.builder()
                 .email(request.getEmail())
                 .password(request.getPassword())
+                .name(request.getName())
                 .build();
     }
 

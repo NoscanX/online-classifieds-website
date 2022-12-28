@@ -45,7 +45,6 @@ public class AdvertisementsService {
         advertisements.setImage(advertisements.getImage());
         advertisements.setIsAdvertisementActive(true);
         advertisements.setAdvertisementDate(LocalDateTime.now());
-        //advertisements.setUserAccount(userAccount);
         advertisementsRepository.save(advertisements);
     }
 

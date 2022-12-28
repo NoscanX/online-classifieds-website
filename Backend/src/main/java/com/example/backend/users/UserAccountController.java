@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 @RequestMapping("/api/v1/user")
 public class UserAccountController {
     private final UserAccountService userAccountService;
@@ -33,10 +34,10 @@ public class UserAccountController {
         return ResponseEntity.ok(userAccountDTO);
     }
 
-    @PutMapping("/updateUser")
-    public ResponseEntity<?> updateUser(@RequestBody UserAccountDTO userAccountDTO) {
-        userAccountService.updateUserAddress(userAccountDTO);
-        return ResponseEntity.ok("Address upddate ok");
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserAccountDTO userAccountDTO) {
+        userAccountService.updateUserAddress(id, userAccountDTO);
+        return ResponseEntity.ok("Address update ok");
     }
 
     @DeleteMapping("/deleteUser/{id}")
