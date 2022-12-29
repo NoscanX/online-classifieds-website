@@ -16,6 +16,8 @@ import java.util.Optional;
 @RequestMapping("/api/v1/purchase")
 public class PurchasesController {
     private final PurchasesService purchasesService;
+    //ratings test
+//    private final PurchasesRepository purchasesRepository;
 
     @PostMapping("/{idUser}/{idAd}")
     public ResponseEntity<?> addPurchase(@PathVariable("idUser") Long idUser,@PathVariable("idAd") Long idAd, @RequestBody PurchasesDTO purchasesDTO) {
@@ -39,4 +41,10 @@ public class PurchasesController {
     public ResponseEntity<List<PurchasesDTO>> getAllPurchases() {
         return ResponseEntity.ok(purchasesService.getAllPurchases());
     }
+
+    //ratings test
+//    @GetMapping("/get")
+//    public ResponseEntity<Double> get() {
+//        return ResponseEntity.ok(purchasesRepository.getAvgRating());
+//    }
 }

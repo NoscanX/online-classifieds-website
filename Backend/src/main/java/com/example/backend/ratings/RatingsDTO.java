@@ -11,4 +11,5 @@ import lombok.Setter;
 public class RatingsDTO {
     private Long id;
     private Double rating;
+    private Long purchaseId;
 }

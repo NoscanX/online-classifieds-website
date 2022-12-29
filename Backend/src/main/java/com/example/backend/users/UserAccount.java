@@ -1,6 +1,7 @@
 package com.example.backend.users;
 
 import com.example.backend.advertisements.Advertisements;
+import com.example.backend.ratings.Ratings;
 import lombok.*;
 
 import javax.persistence.*;
@@ -49,4 +50,8 @@ public class UserAccount {
     //czy to potrzebne?
     @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
     private List<Advertisements> advertisements = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
+//    private List<Ratings> ratingses = new ArrayList<>();
+
 }

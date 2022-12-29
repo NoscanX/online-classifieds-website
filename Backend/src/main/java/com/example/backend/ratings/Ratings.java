@@ -1,6 +1,7 @@
 package com.example.backend.ratings;
 
 import com.example.backend.purchases.Purchases;
+import com.example.backend.users.UserAccount;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,5 +26,9 @@ public class Ratings {
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "purchases_id", nullable = false)
     private Purchases purchases;
+
+//    @ManyToOne
+//    @JoinColumn(name = "seller_id")
+//    private UserAccount userAccount;
 
 }

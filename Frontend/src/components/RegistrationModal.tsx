@@ -30,11 +30,9 @@ const RegistrationModal = (props: any) => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      console.log("false");
+      setValidatedRegistration(true);
+      return;
     }
-
-    setValidatedRegistration(true);
-    console.log("GIT TRUE");
 
     console.log(registerValues);
     await RegisterService.saveUser(registerValues);

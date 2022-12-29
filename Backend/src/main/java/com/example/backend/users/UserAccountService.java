@@ -1,5 +1,6 @@
 package com.example.backend.users;
 
+import com.example.backend.ratings.Ratings;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,8 @@ public class UserAccountService {
         userAccount.setUserRole(UserRole.USER);
         userAccount.setUserRating(0.0);
         userAccount.setIsAccountActive(true);
+        Ratings rating = new Ratings();
+//        rating.setRating();
         userAccountRepository.save(userAccount);
     }
     public List<UserAccountDTO> getAllUsers() {
