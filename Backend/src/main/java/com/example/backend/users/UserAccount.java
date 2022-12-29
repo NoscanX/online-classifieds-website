@@ -51,7 +51,7 @@ public class UserAccount {
     @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
     private List<Advertisements> advertisements = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
-//    private List<Ratings> ratingses = new ArrayList<>();
+    @OneToMany(mappedBy = "userAccount", orphanRemoval = true)
+    private List<Ratings> ratingses = new ArrayList<>();
 
 }

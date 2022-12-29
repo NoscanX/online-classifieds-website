@@ -16,18 +16,24 @@ const AddAdvertising = () => {
 
   const [validatedAddAd, setValidatedAddAd] = useState<boolean>(false);
 
-  const handleAddAdSubmit = (event:any) => {
+  const handleAddAdSubmit = (event: any) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidatedAddAd(true);
+      return;
     }
-    setValidatedAddAd(true);
   };
 
   return (
     <div className="add-advertising-form-container">
-      <Form noValidate validated={validatedAddAd} onSubmit={handleAddAdSubmit} style={{ width: "60%", padding: "2rem 3rem" }}>
+      <Form
+        noValidate
+        validated={validatedAddAd}
+        onSubmit={handleAddAdSubmit}
+        style={{ width: "60%", padding: "2rem 3rem" }}
+      >
         <h2 style={{ marginBottom: "3rem" }}>Dodaj swoje ogłoszenie</h2>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Nazwa ogłoszenia</Form.Label>
@@ -49,7 +55,9 @@ const AddAdvertising = () => {
             required
             style={{ width: "45%" }}
           >
-            <option selected disabled>Wybierz kategorię</option>
+            <option selected disabled>
+              Wybierz kategorię
+            </option>
             <option value="1">Elektronika</option>
             <option value="2">Motoryzacja</option>
             <option value="3">Sport</option>
@@ -59,7 +67,9 @@ const AddAdvertising = () => {
             required
             style={{ width: "45%" }}
           >
-            <option selected disabled>Wybierz podkategorię</option>
+            <option selected disabled>
+              Wybierz podkategorię
+            </option>
             <option value="1">Karty graficzne</option>
             <option value="2">Telefony</option>
             <option value="3">Samochody</option>
@@ -81,7 +91,7 @@ const AddAdvertising = () => {
         </Form.Group>
         <Form.Group controlId="formFileMultiple" className="mb-3">
           <Form.Label>Prześlij zdjęcie do ogłoszenia</Form.Label>
-          <Form.Control required accept=".png,.jpg,.jpeg" type="file"/>
+          <Form.Control required accept=".png,.jpg,.jpeg" type="file" />
         </Form.Group>
         <Button type="submit">Wystaw ofertę</Button>
       </Form>

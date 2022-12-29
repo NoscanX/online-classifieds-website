@@ -19,7 +19,14 @@ import java.util.Optional;
 public class AdvertisementsController {
     private final AdvertisementsService advertisementsService;
 
+//    @PostMapping("/add/{idUser}/{idCat}")
+//    public ResponseEntity<?> addAdvertisement(@PathVariable("idUser") Long idUser, @RequestBody AdvertisementsDTO advertisementsDTO) {
+//        advertisementsService.addAdvertisement(idUser, advertisementsDTO);
+//        return ResponseEntity.ok("Dodano ogloszenie");
+//    }
+
     //logged user cos tam??
+    //proper postmapping
     @PostMapping("/add/{idUser}/{idCat}")
     public ResponseEntity<?> addAdvertisement(@PathVariable("idUser") Long idUser,@PathVariable("idCat") Long idCat, @RequestBody AdvertisementsDTO advertisementsDTO) {
         advertisementsService.addAdvertisement(idUser, idCat, advertisementsDTO);

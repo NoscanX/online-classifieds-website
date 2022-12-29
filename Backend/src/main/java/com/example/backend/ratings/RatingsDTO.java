@@ -12,4 +12,5 @@ public class RatingsDTO {
     private Long id;
     private Double rating;
     private Long purchaseId;
+    private Long sellerId;
 }

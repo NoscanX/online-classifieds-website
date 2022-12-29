@@ -11,13 +11,25 @@ import Product from "./pages/Product";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
-
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <Navbar />
       <main className="container">
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add_advertising" element={<AddAdvertising />} />

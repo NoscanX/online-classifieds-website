@@ -28,6 +28,7 @@ public class AdvertisementsMapper {
                 .isAdvertisementActive(dto.getIsAdvertisementActive())
                 .data(dto.getAdvertisementDate())
                 .userId(dto.getUserAccount().getId())
+                .advertisementerEmail(dto.getUserAccount().getEmail())
                 .categoryId(dto.getCategories().getId())
                 .build();
     }

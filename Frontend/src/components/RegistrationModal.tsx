@@ -1,10 +1,6 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { useState } from "react";
-import {
-  RegistrationTypes,
-  USER_ROLE,
-  RegistrationValidationTypes,
-} from "../types/AuthorizationTypes";
+import { RegistrationTypes, USER_ROLE } from "../types/AuthorizationTypes";
 import RegisterService from "../services/RegisterService";
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,11 +17,8 @@ const RegistrationModal = (props: any) => {
   const [registerValues, setRegisterValues] = useState<RegistrationTypes>(
     initialRegisterValues
   );
-  const [formErrors, setFormErrors] = useState({});
 
   const handleRegistrationSubmit = async (event: any) => {
-    const { name, email, password } = registerValues;
-
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -37,6 +30,16 @@ const RegistrationModal = (props: any) => {
     console.log(registerValues);
     await RegisterService.saveUser(registerValues);
     setRegisterValues(initialRegisterValues);
+    toast.success("🦄 Wow so easy!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   return (

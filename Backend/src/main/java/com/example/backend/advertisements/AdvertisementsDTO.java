@@ -19,4 +19,5 @@ public class AdvertisementsDTO {
     private Long categoryId; //czy to potrzebne?
     private Long userId;
     private String data;
+    private String advertisementerEmail;
 }

@@ -27,8 +27,8 @@ public class Ratings {
     @JoinColumn(name = "purchases_id", nullable = false)
     private Purchases purchases;
 
-//    @ManyToOne
-//    @JoinColumn(name = "seller_id")
-//    private UserAccount userAccount;
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private UserAccount userAccount;
 
 }

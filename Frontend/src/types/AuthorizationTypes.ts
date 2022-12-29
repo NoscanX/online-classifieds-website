@@ -13,20 +13,7 @@ export interface RegistrationTypes {
   // roleRegistration: USER_ROLE
 }
 
-export interface RegistrationValidationTypes {
-  email: boolean;
-  password: boolean;
-  name: boolean;
-  // cityRegistrationValidation: boolean,
-  // addressRegistrationValidation: boolean
-}
-
 export interface LoginTypes {
   emailLogin: string;
   passwordLogin: string;
-}
-
-export interface LoginValidationTypes {
-  emailLoginValidation: boolean;
-  passwordLoginValidation: boolean;
 }

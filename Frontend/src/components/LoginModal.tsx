@@ -4,13 +4,14 @@ import { useState } from "react";
 const LoginModal = (props: any) => {
   const [validatedLogin, setValidatedLogin] = useState<boolean>(false);
 
-  const handleLoginSubmit = (event: any) => {
+  const handleLoginSubmit = async (event: any) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidatedLogin(true);
+      return;
     }
-    setValidatedLogin(true);
   };
 
   return (

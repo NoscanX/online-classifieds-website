@@ -28,6 +28,18 @@ public class AdvertisementsService {
     private final UserAccountRepository userAccountRepository;
     private final CategoriesRepository categoriesRepository;
 
+//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO) {
+//        UserAccount userAccount = userAccountRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
+//        advertisements.setIsAdvertisementActive(true);
+//        advertisements.setUserAccount(userAccount);
+//        advertisements.setCategories(advertisementsDTO.getCategoryId());
+//        advertisementsRepository.save(advertisements);
+//    }
+
+
+    //proper function
     public void addAdvertisement(Long userId, Long catId, AdvertisementsDTO advertisementsDTO) {
         UserAccount userAccount = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
