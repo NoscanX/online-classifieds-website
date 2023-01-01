@@ -22,102 +22,56 @@ const AdsList = () => {
   return (
     <div className="list-items-wrap">
       <ul>
-        {advertisements.map((advertisement, index) => (
-          <Link key={index} to="/product" rel="noopener noreferrer">
-            <li key={index}>
-              <div className="ad-list-item-img">
-                <img
-                  src={imageMapper[advertisement.image]}
-                  alt={advertisement.image}
-                />
-              </div>
-              <div className="ad-list-item-name">
-                <div className="auction-title">
-                  <h5>{advertisement.name}</h5>
+        {advertisements.length ? (
+          advertisements.map((advertisement, index) => (
+            <Link key={index} to="/product" rel="noopener noreferrer">
+              <li key={index}>
+                <div className="ad-list-item-img">
+                  <img
+                    src={advertisement.image}
+                    // src={imageMapper[advertisement.image]}
+                    alt={advertisement.image}
+                  />
                 </div>
-                <div className="auction-user">
-                  Ogłoszenie użytkownika: {advertisement.advertisementerEmail}
+                <div className="ad-list-item-name">
+                  <div className="auction-title">
+                    <h5>{advertisement.name}</h5>
+                  </div>
+                  <div className="auction-user">
+                    Ogłoszenie użytkownika: {advertisement.advertisementerEmail}
+                  </div>
                 </div>
+                <div className="ad-list-item-price">
+                  <h5>{advertisement.price} zł</h5>
+                </div>
+              </li>
+            </Link>
+          ))
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <h3
+              style={{
+                textAlign: "center",
+                marginTop: "4rem",
+                textDecoration: "underline",
+              }}
+            >
+              Wygląda na to, że nikt jeszcze nie dodał ogłoszenia.
+              <div
+                style={{
+                  marginTop: "3rem",
+                }}
+              >
+                <img src={require("../assets/3x.png")}></img>
               </div>
-              <div className="ad-list-item-price">
-                <h5>{advertisement.price} zł</h5>
-              </div>
-            </li>
-          </Link>
-        ))}
-
-        {/*<Link to="/product" rel="noopener noreferrer">*/}
-        {/*  <li>*/}
-        {/*    <div className="ad-list-item-img">*/}
-        {/*      <img src={require("../assets/3x.png")} />*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-name">*/}
-        {/*      <div className="auction-title">*/}
-        {/*        <h5>Taki piesek o drogi fajny piesek</h5>*/}
-        {/*      </div>*/}
-        {/*      <div className="auction-user">*/}
-        {/*        Aukcja użytkownika: test@test.pl*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-price">*/}
-        {/*      <h5>1555 zł</h5>*/}
-        {/*    </div>*/}
-        {/*  </li>*/}
-        {/*</Link>*/}
-        {/*<a href="/" rel="noopener noreferrer">*/}
-        {/*  <li>*/}
-        {/*    <div className="ad-list-item-img">*/}
-        {/*      <img src={require("../assets/maluch.png")} />*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-name">*/}
-        {/*      <div className="auction-title">*/}
-        {/*        <h5>Taki malczan o drogi tez fajny malczan malczan</h5>*/}
-        {/*      </div>*/}
-        {/*      <div className="auction-user">*/}
-        {/*        Aukcja użytkownika: test2@test.pl*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-price">*/}
-        {/*      <h5>1999 zł</h5>*/}
-        {/*    </div>*/}
-        {/*  </li>*/}
-        {/*</a>*/}
-        {/*<a href="/" rel="noopener noreferrer">*/}
-        {/*  <li>*/}
-        {/*    <div className="ad-list-item-img">*/}
-        {/*      <img src={require("../assets/3x.png")} />*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-name">*/}
-        {/*      <div className="auction-title">*/}
-        {/*        <h5>Taki piesek o drogi fajny piesek</h5>*/}
-        {/*      </div>*/}
-        {/*      <div className="auction-user">*/}
-        {/*        Aukcja użytkownika: test@test.pl*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-price">*/}
-        {/*      <h5>1555 zł</h5>*/}
-        {/*    </div>*/}
-        {/*  </li>*/}
-        {/*</a>*/}
-        {/*<a href="/" rel="noopener noreferrer">*/}
-        {/*  <li>*/}
-        {/*    <div className="ad-list-item-img">*/}
-        {/*      <img src={require("../assets/maluch.png")} />*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-name">*/}
-        {/*      <div className="auction-title">*/}
-        {/*        <h5>Taki malczan o drogi tez fajny malczan malczan</h5>*/}
-        {/*      </div>*/}
-        {/*      <div className="auction-user">*/}
-        {/*        Aukcja użytkownika: test2@test.pl*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*    <div className="ad-list-item-price">*/}
-        {/*      <h5>1999 zł</h5>*/}
-        {/*    </div>*/}
-        {/*  </li>*/}
-        {/*</a>*/}
+            </h3>
+          </div>
+        )}
       </ul>
     </div>
   );

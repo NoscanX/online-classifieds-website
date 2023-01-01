@@ -39,6 +39,7 @@ public class PurchasesService {
         advertisements.setIsAdvertisementActive(false);
         purchases.setDate(LocalDateTime.now().format(formatter));
         purchases.setPayment(Payment.CASH_ON_DELIVERY);
+        purchases.setRating(0.0);
         advertisementsRepository.save(advertisements);
         purchasesRepository.save(purchases);
     }

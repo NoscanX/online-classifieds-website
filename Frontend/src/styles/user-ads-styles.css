@@ -4,7 +4,15 @@
     flex-direction: column;
     background-color: hsl(210, 17%, 98%);
     min-height: 100vh;
-    padding: 2rem;
+}
+
+.user-ads-header-container {
+    padding: 2rem 0;
+    margin: 0;
+}
+
+.user-ads-list-items-wrap {
+    padding: 0 2rem;
 }
 
 .user-ads-container h2{
@@ -92,10 +100,10 @@
 }
 
 .icon {
-    color: hsl(215.8, 98.4%, 52.2%);
+    color: hsl(215.8, 98.4%, 50%);
 }
 
 .icon:hover {
-    color: hsl(215.6, 90.3%, 44.3%);
+    color: hsl(215.6, 90.3%, 30%);
     cursor: pointer;
 }

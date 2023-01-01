@@ -18,7 +18,7 @@ const Home = () => {
         </div>
         <hr />
         <div className="ad-list-render-container">
-          <h4>Wyszukano duzo ofert: 1321</h4>
+          <h4>Dostępne ogłoszenia:</h4>
           <AdsList />
         </div>
       </div>

@@ -14,6 +14,7 @@ public class AdvertisementsDTO {
     private String name;
     private String description;
     private Double price;
+//    private byte[] image;
     private String image;
     private Boolean isAdvertisementActive;
     private Long categoryId; //czy to potrzebne?

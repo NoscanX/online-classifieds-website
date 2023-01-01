@@ -9,9 +9,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -41,6 +43,20 @@ public class AdvertisementsService {
         advertisementsRepository.save(advertisements);
     }
 
+    //image
+//    public void addAdvertisement(Long userId, Long catId, AdvertisementsDTO advertisementsDTO, MultipartFile image) throws IOException {
+//        UserAccount userAccount = userAccountRepository.findById(userId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+//        Categories category = categoriesRepository.findById(catId)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No cat"));
+//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
+//        advertisements.setImage(image.getInputStream().readAllBytes());
+//        advertisements.setIsAdvertisementActive(true);
+//        advertisements.setUserAccount(userAccount);
+//        advertisements.setCategories(category);
+//        advertisementsRepository.save(advertisements);
+//    }
+
     public List<AdvertisementsDTO> getAllAdvertisements() {
         return advertisementsRepository.findAll()
                 .stream()
@@ -61,7 +77,7 @@ public class AdvertisementsService {
         advertisements.setName(advertisementsDTO.getName());
         advertisements.setDescription(advertisementsDTO.getDescription());
         advertisements.setPrice(advertisementsDTO.getPrice());
-        advertisements.setImage(advertisementsDTO.getImage());
+//        advertisements.setImage(advertisementsDTO.getImage());
         advertisements.setAdvertisementDate(LocalDateTime.now().format(formatter));
         advertisementsRepository.save(advertisements);
     }

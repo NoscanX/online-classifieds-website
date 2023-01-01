@@ -20,14 +20,14 @@ const NavbarFunc = () => {
   const isLoggedIn: boolean = true;
   const isAdmin: boolean = true;
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  const getUser = async () => {
-    const resUserMe = await axios.get(`user/me`);
-    console.log(resUserMe);
-  };
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
+  //
+  // const getUser = async () => {
+  //   const resUserMe = await axios.get(`user/me`);
+  //   console.log(resUserMe);
+  // };
 
   const LoginRegisterNav = () => {
     const [modalLoginShow, setLoginModalShow] = useState<boolean>(false);

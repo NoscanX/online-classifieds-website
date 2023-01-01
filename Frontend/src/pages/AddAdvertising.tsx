@@ -117,15 +117,12 @@ const AddAdvertising = () => {
     }
   };
 
-  // const handleImage = (e: any) => {
-  //   const files = e.target.files;
-  //   const data = new FormData();
-  //   data.append("file", files[0]);
-  //   setadvertisementValues((prevState)=>{
-  //     ...prevState,
-  //         image: e.target.files,
-  //   })
-  // };
+  const handleImageChange = (e: any) => {
+    setadvertisementValues((prevState) => ({
+      ...prevState,
+      image: e.target.files[0],
+    }));
+  };
 
   return (
     <div className="add-advertising-form-container">
@@ -215,8 +212,9 @@ const AddAdvertising = () => {
             accept=".png,.jpg,.jpeg"
             type="file"
             value={advertisementValues.image}
+            // onChange={(e) => handleImageChange(e)}
             onChange={(e) => {
-              console.log(e.target);
+              checkValue(e);
               setadvertisementValues((prevState) => ({
                 ...prevState,
                 image: e.target.value,

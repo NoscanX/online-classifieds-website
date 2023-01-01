@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/product-styles.css";
 import { Button } from "react-bootstrap";
-import LoginModal from "../components/LoginModal";
 import BuyNowModal from "../components/BuyNowModal";
 
 const Product = () => {

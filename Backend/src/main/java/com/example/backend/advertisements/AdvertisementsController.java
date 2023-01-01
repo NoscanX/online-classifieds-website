@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,16 +19,9 @@ import java.util.Optional;
 public class AdvertisementsController {
     private final AdvertisementsService advertisementsService;
 
-//    @PostMapping("/add/{idUser}/{idCat}")
-//    public ResponseEntity<?> addAdvertisement(@PathVariable("idUser") Long idUser, @RequestBody AdvertisementsDTO advertisementsDTO) {
-//        advertisementsService.addAdvertisement(idUser, advertisementsDTO);
-//        return ResponseEntity.ok("Dodano ogloszenie");
-//    }
-
-    //logged user cos tam??
     //proper postmapping
     @PostMapping("/add/me/{idCat}")
-    public ResponseEntity<?> addAdvertisement(Authentication authentication,@PathVariable("idCat") Long idCat, @RequestBody AdvertisementsDTO advertisementsDTO) {
+    public ResponseEntity<?> addAdvertisement(Authentication authentication, @PathVariable("idCat") Long idCat, @RequestBody AdvertisementsDTO advertisementsDTO) {
         UserAccount loggedUser = Optional.ofNullable(authentication)
                 .filter(f -> f.getPrincipal() instanceof UserWrapper)
                 .map(Authentication::getPrincipal)
@@ -36,6 +31,19 @@ public class AdvertisementsController {
         advertisementsService.addAdvertisement(loggedUser.getId(), idCat, advertisementsDTO);
         return ResponseEntity.ok("Dodano ogloszenie");
     }
+
+    //image
+//    @PostMapping("/add/me/{idCat}")
+//    public ResponseEntity<?> addAdvertisement(Authentication authentication, @PathVariable("idCat") Long idCat, @RequestParam MultipartFile image, @RequestBody AdvertisementsDTO advertisementsDTO) throws IOException {
+//        UserAccount loggedUser = Optional.ofNullable(authentication)
+//                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+//                .map(Authentication::getPrincipal)
+//                .map(UserWrapper.class::cast)
+//                .map(UserWrapper::getUserAccount)
+//                .orElse(null);
+//        advertisementsService.addAdvertisement(loggedUser.getId(), idCat, advertisementsDTO, image);
+//        return ResponseEntity.ok("Dodano ogloszenie");
+//    }
 
 
     @GetMapping("/getAllAdvertisements")
@@ -51,8 +59,7 @@ public class AdvertisementsController {
                 .map(UserWrapper.class::cast)
                 .map(UserWrapper::getUserAccount)
                 .orElse(null);
-        final List<AdvertisementsDTO> userAds = advertisementsService.getAllAdvertisementsByUserId(loggedUser.getId());
-        return ResponseEntity.ok(userAds);
+        return ResponseEntity.ok(advertisementsService.getAllAdvertisementsByUserId(loggedUser.getId()));
     }
 
     @PutMapping("/updateAdvertisementState/{id}")

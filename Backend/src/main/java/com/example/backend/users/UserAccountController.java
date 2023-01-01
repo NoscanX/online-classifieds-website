@@ -48,9 +48,21 @@ public class UserAccountController {
         return ResponseEntity.ok(loggedUser);
     }
 
-    @PutMapping("/updateUser/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserAccountDTO userAccountDTO) {
-        userAccountService.updateUserAddress(id, userAccountDTO);
+//    @PutMapping("/updateUser/{id}")
+//    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserAccountDTO userAccountDTO) {
+//        userAccountService.updateUserAddress(id, userAccountDTO);
+//        return ResponseEntity.ok("Address update ok");
+//    }
+
+    @PutMapping("/updateUser/me")
+    public ResponseEntity<?> updateUser(Authentication authentication, @RequestBody UserAccountDTO userAccountDTO) {
+        UserAccount loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .orElse(null);
+        userAccountService.updateUserAddress(loggedUser.getId(), userAccountDTO);
         return ResponseEntity.ok("Address update ok");
     }
 
