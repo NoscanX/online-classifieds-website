@@ -6,7 +6,7 @@ const RegisterService = {
     console.log("WTF");
     return axios({
       method: "POST",
-      url: "user/register",
+      url: `user/register`,
       data: user,
       headers: {},
     });

@@ -36,4 +36,7 @@ public class Purchases {
     @Column(name = "payment", nullable = false)
     private Payment payment;
 
+    @Column(name = "rating")
+    private Double rating;
+
 }

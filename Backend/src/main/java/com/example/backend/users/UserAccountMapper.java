@@ -18,7 +18,7 @@ public class UserAccountMapper {
                 .name(user.getName())
                 .userRating(user.getUserRating())
                 .userRole(user.getUserRole())
-                .isActive(user.getIsAccountActive())
+                .isNonLocked(user.getIsUserAccountNonLocked())
                 .advertisementsList(user.getAdvertisements().stream().map(advertisementsMapper::mapEntityToDTO).collect(Collectors.toList()))
                 .build();
     }

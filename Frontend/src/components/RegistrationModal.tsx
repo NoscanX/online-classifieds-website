@@ -3,7 +3,7 @@ import { useState } from "react";
 import { RegistrationTypes, USER_ROLE } from "../types/AuthorizationTypes";
 import RegisterService from "../services/RegisterService";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const initialRegisterValues = {
   email: "",
@@ -24,22 +24,14 @@ const RegistrationModal = (props: any) => {
       event.preventDefault();
       event.stopPropagation();
       setValidatedRegistration(true);
+      toast.error("Błędy w formularzu!");
       return;
     }
 
     console.log(registerValues);
     await RegisterService.saveUser(registerValues);
     setRegisterValues(initialRegisterValues);
-    toast.success("🦄 Wow so easy!", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
+    toast.success("Rejestracja pomyślna!");
   };
 
   return (
@@ -55,11 +47,7 @@ const RegistrationModal = (props: any) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form
-          noValidate
-          validated={validatedRegistration}
-          onSubmit={handleRegistrationSubmit}
-        >
+        <Form noValidate validated={validatedRegistration}>
           <Form.Group className="mb-3" controlId="registrationEmailInput">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -114,7 +102,7 @@ const RegistrationModal = (props: any) => {
           {/*  <Form.Label>Adres</Form.Label>*/}
           {/*  <Form.Control required type="text" placeholder="Adres"/>*/}
           {/*</Form.Group>*/}
-          <Button type="submit">Zarejestruj</Button>
+          <Button onClick={handleRegistrationSubmit}>Zarejestruj</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

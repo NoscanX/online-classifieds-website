@@ -28,17 +28,6 @@ public class AdvertisementsService {
     private final UserAccountRepository userAccountRepository;
     private final CategoriesRepository categoriesRepository;
 
-//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO) {
-//        UserAccount userAccount = userAccountRepository.findById(userId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
-//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
-//        advertisements.setIsAdvertisementActive(true);
-//        advertisements.setUserAccount(userAccount);
-//        advertisements.setCategories(advertisementsDTO.getCategoryId());
-//        advertisementsRepository.save(advertisements);
-//    }
-
-
     //proper function
     public void addAdvertisement(Long userId, Long catId, AdvertisementsDTO advertisementsDTO) {
         UserAccount userAccount = userAccountRepository.findById(userId)
@@ -52,22 +41,15 @@ public class AdvertisementsService {
         advertisementsRepository.save(advertisements);
     }
 
-//    public void addAdvertisement(Long userId, AdvertisementsDTO advertisementsDTO, UserWrapper userWrapper) {
-//        UserAccount userAccount = userAccountRepository.findById(userId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
-//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
-//        advertisements.setUserAccount(userWrapper.getUserAccount());
-//        advertisements.setName(advertisements.getName());
-//        advertisements.setDescription(advertisements.getDescription());
-//        advertisements.setPrice(advertisements.getPrice());
-//        advertisements.setImage(advertisements.getImage());
-//        advertisements.setIsAdvertisementActive(true);
-//        advertisements.setAdvertisementDate(LocalDateTime.now());
-//        advertisementsRepository.save(advertisements);
-//    }
-
     public List<AdvertisementsDTO> getAllAdvertisements() {
         return advertisementsRepository.findAll()
+                .stream()
+                .map(advertisementsMapper::mapEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<AdvertisementsDTO> getAllAdvertisementsByUserId(Long id) {
+        return advertisementsRepository.findAllByUserAccountId(id)
                 .stream()
                 .map(advertisementsMapper::mapEntityToDTO)
                 .collect(Collectors.toList());

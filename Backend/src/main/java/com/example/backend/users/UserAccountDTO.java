@@ -18,6 +18,6 @@ public class UserAccountDTO {
     private String name;
     private Double userRating;
     private UserRole userRole;
-    private Boolean isActive;
+    private Boolean isNonLocked;
     private List<AdvertisementsDTO> advertisementsList;
 }

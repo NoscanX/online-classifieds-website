@@ -7,16 +7,27 @@ import {
   Button,
 } from "react-bootstrap";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
 import RegistrationModal from "./RegistrationModal";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const NavbarFunc = () => {
   const isLoggedIn: boolean = true;
   const isAdmin: boolean = true;
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const resUserMe = await axios.get(`user/me`);
+    console.log(resUserMe);
+  };
 
   const LoginRegisterNav = () => {
     const [modalLoginShow, setLoginModalShow] = useState<boolean>(false);
@@ -66,7 +77,14 @@ const NavbarFunc = () => {
             </NavDropdown.Item>
           )}
           <NavDropdown.Divider />
-          <NavDropdown.Item>Wyloguj</NavDropdown.Item>
+          <NavDropdown.Item
+            onClick={() => {
+              window.location.href = "http://localhost:8080/logout";
+              toast.success("Zostałeś wylogowany.");
+            }}
+          >
+            Wyloguj
+          </NavDropdown.Item>
         </NavDropdown>
       </>
     );

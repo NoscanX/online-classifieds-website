@@ -13,6 +13,7 @@ public class PurchasesMapper {
                 .id(dto.getId())
                 .payment(dto.getPayment())
                 .date(LocalDateTime.now().format(formatter))
+                .rating(dto.getRating())
                 .build();
     }
 
@@ -21,8 +22,10 @@ public class PurchasesMapper {
                 .id(dto.getId())
                 .date(dto.getDate())
                 .payment(dto.getPayment())
+                .advertisementName(dto.getAdvertisements().getName())
                 .advertisementId(dto.getAdvertisements().getId())
-                .userId(dto.getUserAccount().getId())
+                .buyerId(dto.getUserAccount().getId())
+                .rating(dto.getRating())
                 .build();
     }
 }

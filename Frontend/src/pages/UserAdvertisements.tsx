@@ -1,6 +1,7 @@
 import React from "react";
-import "../styles/user-ads-styles.css"
-import DeleteIcon from '@mui/icons-material/Delete';
+import "../styles/user-ads-styles.css";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const UserAdvertisements = () => {
   return (
@@ -30,7 +31,13 @@ const UserAdvertisements = () => {
                   style={{
                     fontSize: "2rem",
                   }}
-                  className='trash-icon'
+                  className="icon"
+                />
+                <EditIcon
+                  style={{
+                    fontSize: "2rem",
+                  }}
+                  className="icon"
                 />
               </div>
             </div>

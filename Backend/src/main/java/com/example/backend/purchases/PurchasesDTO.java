@@ -13,6 +13,8 @@ public class PurchasesDTO {
     private Long id;
     private String date;
     private Payment payment;
-    private Long userId;
+    private String advertisementName;
+    private Long buyerId;
     private Long advertisementId;
+    private Double rating;
 }

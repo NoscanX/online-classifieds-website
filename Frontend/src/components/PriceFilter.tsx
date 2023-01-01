@@ -15,12 +15,14 @@ const PriceFilter = () => {
           {/* <Button variant="primary">Szukaj</Button> */}
         </Form>
       </div>
-      <div>
+      <div style={{ width: "20%" }}>
         <h4>Filtruj</h4>
-        <Form.Select aria-label="Default select example">
-          <option>Wybierz opcję filtrowania</option>
+        <Form.Select aria-label="Default select example" defaultValue={0}>
+          <option value="0">Brak filtrowania</option>
           <option value="1">Najdroższe</option>
           <option value="2">Najtańsze</option>
+          <option value="3">Najnowsze</option>
+          <option value="4">Najstarsze</option>
         </Form.Select>
       </div>
     </>

@@ -36,7 +36,7 @@ public class UserWrapper implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return userAccount.getIsUserAccountNonLocked();
     }
 
     @Override

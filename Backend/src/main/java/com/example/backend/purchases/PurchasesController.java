@@ -1,5 +1,7 @@
 package com.example.backend.purchases;
 
+import com.example.backend.users.UserAccount;
+import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,13 +18,19 @@ import java.util.Optional;
 @RequestMapping("/api/v1/purchase")
 public class PurchasesController {
     private final PurchasesService purchasesService;
+
     //ratings test
-//    private final PurchasesRepository purchasesRepository;
+    private final UserAccountRepository userAccountRepository;
 
-    @PostMapping("/{idUser}/{idAd}")
-    public ResponseEntity<?> addPurchase(@PathVariable("idUser") Long idUser,@PathVariable("idAd") Long idAd, @RequestBody PurchasesDTO purchasesDTO) {
-
-        purchasesService.addPurchase(idUser, idAd, purchasesDTO);
+    @PostMapping("/me/{idAd}")
+    public ResponseEntity<?> addPurchase(Authentication authentication,@PathVariable("idAd") Long idAd, @RequestBody PurchasesDTO purchasesDTO) {
+        UserAccount loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .orElse(null);
+        purchasesService.addPurchase(loggedUser.getId(), idAd, purchasesDTO);
         return ResponseEntity.ok("Dodano ogloszenie");
     }
 
@@ -42,9 +50,17 @@ public class PurchasesController {
         return ResponseEntity.ok(purchasesService.getAllPurchases());
     }
 
-    //ratings test
-//    @GetMapping("/get")
-//    public ResponseEntity<Double> get() {
-//        return ResponseEntity.ok(purchasesRepository.getAvgRating());
-//    }
+    //do poprawy
+    @GetMapping("/getPurchasesByUserId/{idUser}")
+    public ResponseEntity<List<PurchasesDTO>> getPurchasesByUserId(@PathVariable("idUser") Long idUser) {
+        UserAccount userAccount = userAccountRepository.findById(idUser)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        return ResponseEntity.ok(purchasesService.getPurchasesByUserId(idUser));
+    }
+
+    @PutMapping("/updateRating/{purchaseId}")
+    public ResponseEntity<?> updatePurchaseRating(@PathVariable("purchaseId") Long id, @RequestBody PurchasesDTO purchasesDTO) {
+        purchasesService.updatePurchaseRating(id, purchasesDTO);
+        return ResponseEntity.ok("Purchase rating changed");
+    }
 }

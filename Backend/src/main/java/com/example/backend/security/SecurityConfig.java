@@ -27,13 +27,37 @@ public class SecurityConfig {
     @SneakyThrows
     @Bean
     public SecurityFilterChain getSecurityConfig(HttpSecurity security, CorsConfigurationSource cors){
-        security.csrf().disable()
-                .headers().disable()
+//        security.csrf().disable()
+//                .headers().disable()
+//                .authorizeRequests()
+//                .anyRequest()
+//                .permitAll();
+        security.csrf()
+                .disable()
+                .cors().configurationSource(cors)
+                .and()
+                .headers()
+                .frameOptions().disable()
+                .and()
                 .authorizeRequests()
-                .anyRequest()
+                .antMatchers("/login")
+                .permitAll()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/login")
+                .failureUrl("http://localhost:3000/failed")
+                .defaultSuccessUrl("http://localhost:3000")
+                .loginPage("http://localhost:3000/login")
                 .permitAll();
 
-        security.cors().configurationSource(cors);
+        security.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("http://localhost:3000")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true);
+        //security.cors().configurationSource(cors);
 
         return security.build();
     }

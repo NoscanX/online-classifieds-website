@@ -12,6 +12,7 @@ import Product from "./pages/Product";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 import { ToastContainer } from "react-toastify";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <main className="container">
         <ToastContainer
           position="top-right"
-          autoClose={2000}
+          autoClose={4000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
@@ -37,6 +38,7 @@ function App() {
           <Route path="/user_ads" element={<UserAdvertisements />} />
           <Route path="/user_purchases" element={<Purchases />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/admin_panel" element={<AdminPage />} />
         </Routes>
       </main>
       <Footer />

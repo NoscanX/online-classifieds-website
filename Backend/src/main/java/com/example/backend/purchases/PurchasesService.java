@@ -8,6 +8,7 @@ import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,7 +27,6 @@ public class PurchasesService {
     private final PurchasesMapper purchasesMapper;
     private final UserAccountRepository userAccountRepository;
 
-
     public void addPurchase(Long userId, Long adId, PurchasesDTO purchasesDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         UserAccount userAccount = userAccountRepository.findById(userId)
@@ -36,8 +36,10 @@ public class PurchasesService {
         Purchases purchases = purchasesMapper.mapDTOToEntity(purchasesDTO);
         purchases.setUserAccount(userAccount);
         purchases.setAdvertisements(advertisements);
+        advertisements.setIsAdvertisementActive(false);
         purchases.setDate(LocalDateTime.now().format(formatter));
         purchases.setPayment(Payment.CASH_ON_DELIVERY);
+        advertisementsRepository.save(advertisements);
         purchasesRepository.save(purchases);
     }
 //    public void addPurchase(Long userId, PurchasesDTO purchasesDTO, UserWrapper userWrapper) {
@@ -50,8 +52,22 @@ public class PurchasesService {
 //        purchasesRepository.save(purchases);
 //    }
 
+    public void updatePurchaseRating(Long id, PurchasesDTO purchasesDTO) {
+        Purchases purchases = purchasesRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Purchase not found"));
+        purchases.setRating(purchasesDTO.getRating());
+        purchasesRepository.save(purchases);
+    }
+
     public List<PurchasesDTO> getAllPurchases() {
         return purchasesRepository.findAll()
+                .stream()
+                .map(purchasesMapper::mapEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    //do poprawy
+    public List<PurchasesDTO> getPurchasesByUserId(Long userId) {
+        return purchasesRepository.findById(userId)
                 .stream()
                 .map(purchasesMapper::mapEntityToDTO)
                 .collect(Collectors.toList());

@@ -14,6 +14,6 @@ export interface RegistrationTypes {
 }
 
 export interface LoginTypes {
-  emailLogin: string;
-  passwordLogin: string;
+  email: string;
+  password: string;
 }

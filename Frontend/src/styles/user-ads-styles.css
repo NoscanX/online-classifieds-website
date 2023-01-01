@@ -91,11 +91,11 @@
     margin: 0;
 }
 
-.trash-icon {
+.icon {
     color: hsl(215.8, 98.4%, 52.2%);
 }
 
-.trash-icon:hover {
+.icon:hover {
     color: hsl(215.6, 90.3%, 44.3%);
     cursor: pointer;
 }

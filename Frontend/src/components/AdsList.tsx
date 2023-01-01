@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const imageMapper: any = {
+  "C:\\fakepath\\1046021707267325962.png": require("../assets/maluch.png"),
+};
+
 const AdsList = () => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
 
@@ -10,9 +14,8 @@ const AdsList = () => {
   }, []);
 
   const loadAdvertisements = async () => {
-    const res = await axios.get("advertisement/getAllAdvertisements");
+    const res = await axios.get(`advertisement/getAllAdvertisements`);
     setAdvertisements(res.data);
-
     console.log(res);
   };
 
@@ -23,18 +26,21 @@ const AdsList = () => {
           <Link key={index} to="/product" rel="noopener noreferrer">
             <li key={index}>
               <div className="ad-list-item-img">
-                <img src={advertisement.image} alt={advertisement.image} />
+                <img
+                  src={imageMapper[advertisement.image]}
+                  alt={advertisement.image}
+                />
               </div>
               <div className="ad-list-item-name">
                 <div className="auction-title">
                   <h5>{advertisement.name}</h5>
                 </div>
                 <div className="auction-user">
-                  Aukcja użytkownika: {advertisement.advertisementerEmail}
+                  Ogłoszenie użytkownika: {advertisement.advertisementerEmail}
                 </div>
               </div>
               <div className="ad-list-item-price">
-                <h5>{advertisement.price}</h5>
+                <h5>{advertisement.price} zł</h5>
               </div>
             </li>
           </Link>

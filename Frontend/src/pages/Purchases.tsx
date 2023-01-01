@@ -1,9 +1,15 @@
-import React from "react";
 import "../styles/user-purchases-styles.css";
 import { Rating } from "@mui/material";
+import { useState } from "react";
 
 const Purchases = () => {
-  const [value, setValue] = React.useState<number | null>(0);
+  const [value, setValue] = useState<number | null>(0);
+  const [valuee, setValuee] = useState<number | null>(0);
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setIsDisabled(!isDisabled);
+  };
 
   return (
     <div className="user-purchases-container">
@@ -59,11 +65,13 @@ const Purchases = () => {
                 <p>Oceń aukcję tego użytkownika</p>
                 <Rating
                   name="user-rating"
-                  value={value}
+                  disabled={isDisabled}
+                  value={valuee}
                   precision={0.5}
                   size="large"
                   onChange={(event, newValue) => {
-                    setValue(newValue);
+                    setValuee(newValue);
+                    handleClick();
                   }}
                 />
               </div>

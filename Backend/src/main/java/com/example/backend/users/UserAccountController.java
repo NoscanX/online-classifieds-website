@@ -3,10 +3,12 @@ package com.example.backend.users;
 import com.example.backend.advertisements.AdvertisementsDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -34,6 +36,18 @@ public class UserAccountController {
         return ResponseEntity.ok(userAccountDTO);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserAccountDTO> getMe(Authentication authentication) {
+        UserAccountDTO loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .map(userAccountService::convertUserAccountToUserAccountDTO)
+                .orElse(null);
+        return ResponseEntity.ok(loggedUser);
+    }
+
     @PutMapping("/updateUser/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") Long id, @RequestBody UserAccountDTO userAccountDTO) {
         userAccountService.updateUserAddress(id, userAccountDTO);
@@ -45,6 +59,5 @@ public class UserAccountController {
         userAccountService.deleteUserAccountById(id);
     }
     //do AdControllera /ad/new dodawanie updateowanie
-
 
 }

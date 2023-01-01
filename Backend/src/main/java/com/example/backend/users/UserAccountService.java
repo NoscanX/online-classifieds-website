@@ -1,7 +1,9 @@
 package com.example.backend.users;
 
-import com.example.backend.ratings.Ratings;
+import com.example.backend.advertisements.AdvertisementsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @AllArgsConstructor
-public class UserAccountService {
+public class UserAccountService implements UserDetailsService {
     private final UserAccountRepository userAccountRepository;
     private final UserAccountMapper userAccountMapper;
     private final PasswordEncoder encoder;
+    private final AdvertisementsRepository advertisementsRepository;
 
     public void registerUser(UserRegisterRequest request){
         UserAccount userAccount = userAccountMapper.mapRegisterRequestToEntity(request);
@@ -25,9 +28,7 @@ public class UserAccountService {
         userAccount.setName(userAccount.getName());
         userAccount.setUserRole(UserRole.USER);
         userAccount.setUserRating(0.0);
-        userAccount.setIsAccountActive(true);
-        Ratings rating = new Ratings();
-//        rating.setRating();
+        userAccount.setIsUserAccountNonLocked(true);
         userAccountRepository.save(userAccount);
     }
     public List<UserAccountDTO> getAllUsers() {
@@ -40,6 +41,16 @@ public class UserAccountService {
     public UserAccount getUserAccountById(Long id){
         return userAccountRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userAccountRepository.findUserAccountByEmail(username).map(UserWrapper::new).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+//    public UserAccount getUserAdvertisements(Long id){
+//        userAccountRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+//        return advertisementsRepository.findById(id)
+//    }
 
     public UserAccountDTO convertUserAccountToUserAccountDTO(UserAccount userAccount){
         return userAccountMapper.mapEntityToDTO(userAccount);
