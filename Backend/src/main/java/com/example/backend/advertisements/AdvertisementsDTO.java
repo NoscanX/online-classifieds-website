@@ -21,4 +21,5 @@ public class AdvertisementsDTO {
     private Long userId;
     private String data;
     private String advertisementerEmail;
+    private String buyerEmail;
 }

@@ -12,6 +12,7 @@ public class UserAccountMapper {
     private final AdvertisementsMapper advertisementsMapper;
     public UserAccountDTO mapEntityToDTO(UserAccount user) {
         return UserAccountDTO.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .city(user.getCity())
                 .address(user.getAddress())
@@ -19,7 +20,7 @@ public class UserAccountMapper {
                 .userRating(user.getUserRating())
                 .userRole(user.getUserRole())
                 .isNonLocked(user.getIsUserAccountNonLocked())
-                .advertisementsList(user.getAdvertisements().stream().map(advertisementsMapper::mapEntityToDTO).collect(Collectors.toList()))
+//                .advertisementsList(user.getAdvertisements().stream().map(advertisementsMapper::mapEntityToDTO).collect(Collectors.toList()))
                 .build();
     }
 

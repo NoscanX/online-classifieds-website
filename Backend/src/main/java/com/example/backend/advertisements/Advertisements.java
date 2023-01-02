@@ -1,6 +1,7 @@
 package com.example.backend.advertisements;
 
 import com.example.backend.categories.Categories;
+import com.example.backend.purchases.Purchases;
 import com.example.backend.users.UserAccount;
 import lombok.*;
 

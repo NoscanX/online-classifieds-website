@@ -1,5 +1,6 @@
 package com.example.backend.purchases;
 
+import com.example.backend.advertisements.AdvertisementsDTO;
 import com.example.backend.users.UserAccount;
 import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
@@ -50,12 +51,26 @@ public class PurchasesController {
         return ResponseEntity.ok(purchasesService.getAllPurchases());
     }
 
-    //do poprawy
-    @GetMapping("/getPurchasesByUserId/{idUser}")
-    public ResponseEntity<List<PurchasesDTO>> getPurchasesByUserId(@PathVariable("idUser") Long idUser) {
-        UserAccount userAccount = userAccountRepository.findById(idUser)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
-        return ResponseEntity.ok(purchasesService.getPurchasesByUserId(idUser));
+    @GetMapping("/getAllPurchasesByUserId/me")
+    public ResponseEntity<List<PurchasesDTO>> getAllPurchasesByUserId(Authentication authentication) {
+        UserAccount loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .orElse(null);
+        return ResponseEntity.ok(purchasesService.getAllPurchasesByUserId(loggedUser.getId()));
+    }
+
+    @GetMapping("/getAllPurchasesByAdvertisementerId/me")
+    public ResponseEntity<List<PurchasesDTO>> getAllPurchasesByAdvertisementerId(Authentication authentication) {
+        UserAccount loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .orElse(null);
+        return ResponseEntity.ok(purchasesService.getAllPurchasesByAdvertisementerId(loggedUser.getId()));
     }
 
     @PutMapping("/updateRating/{purchaseId}")

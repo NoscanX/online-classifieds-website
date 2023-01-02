@@ -29,7 +29,13 @@ public class PurchasesMapper {
                 .advertisementImage(dto.getAdvertisements().getImage())
                 .advertisementDate(dto.getAdvertisements().getAdvertisementDate())
                 .advertisementIsActive(dto.getAdvertisements().getIsAdvertisementActive())
+                .advertisementerEmail(dto.getAdvertisements().getUserAccount().getEmail())
+                .advertisementerId(dto.getAdvertisements().getUserAccount().getId())
                 .buyerId(dto.getUserAccount().getId())
+                .buyerEmail(dto.getUserAccount().getEmail())
+                .buyerAddress(dto.getUserAccount().getAddress())
+                .buyerCity(dto.getUserAccount().getCity())
+                .buyerName(dto.getUserAccount().getName())
                 .rating(dto.getRating())
                 .build();
     }

@@ -67,8 +67,15 @@ public class PurchasesService {
     }
 
     //do poprawy
-    public List<PurchasesDTO> getPurchasesByUserId(Long userId) {
-        return purchasesRepository.findById(userId)
+    public List<PurchasesDTO> getAllPurchasesByUserId(Long userId) {
+        return purchasesRepository.findAllByUserAccountId(userId)
+                .stream()
+                .map(purchasesMapper::mapEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<PurchasesDTO> getAllPurchasesByAdvertisementerId(Long userId) {
+        return purchasesRepository.findAllByAdvertisementerId(userId)
                 .stream()
                 .map(purchasesMapper::mapEntityToDTO)
                 .collect(Collectors.toList());

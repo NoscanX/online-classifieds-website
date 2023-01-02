@@ -19,7 +19,13 @@ public class PurchasesDTO {
     private String advertisementImage;
     private String advertisementDate;
     private Boolean advertisementIsActive;
+    private String advertisementerEmail;
+    private Long advertisementerId;
     private Long buyerId;
     private Long advertisementId;
     private Double rating;
+    private String buyerName;
+    private String buyerEmail;
+    private String buyerAddress;
+    private String buyerCity;
 }
