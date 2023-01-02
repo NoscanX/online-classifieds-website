@@ -1,6 +1,11 @@
 import { Form, Button } from "react-bootstrap";
+import { Dispatch, SetStateAction } from "react";
 
-const PriceFilter = () => {
+interface Props {
+  handleSearch: Dispatch<SetStateAction<string>>;
+}
+
+const PriceFilter = ({ handleSearch }: Props) => {
   return (
     <>
       <div style={{ width: "40%" }}>
@@ -11,6 +16,7 @@ const PriceFilter = () => {
             placeholder="Szukaj"
             className="me-2"
             aria-label="Search"
+            onChange={(e) => handleSearch(e.target.value)}
           />
           {/* <Button variant="primary">Szukaj</Button> */}
         </Form>

@@ -60,7 +60,7 @@
 }
 
 .user-ads-list-item-price {
-    width: 20%;
+    width: 30%;
     text-align: right;
     margin-right: 1rem;
     display: flex;
@@ -86,16 +86,17 @@
     color: initial;
     height: 20%;
     display: flex;
-    flex-direction: row;
-    align-items: end;
+    flex-direction: column;
+    align-items: start;
     font-size: .9rem;
 }
 
-.delete-box {
+.buyer-info {
     font-size: .9rem;
+    text-align: left;
 }
 
-.delete-box p {
+.buyer-info p {
     margin: 0;
 }
 
@@ -106,4 +107,8 @@
 .icon:hover {
     color: hsl(215.6, 90.3%, 30%);
     cursor: pointer;
+}
+
+.user-ads-auction-user p {
+    margin: 0;
 }

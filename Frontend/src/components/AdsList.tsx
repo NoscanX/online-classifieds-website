@@ -3,11 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 
+interface Props {
+  searchByName: string;
+}
+
 const imageMapper: any = {
   "C:\\fakepath\\1046021707267325962.png": require("../assets/maluch.png"),
 };
 
-const AdsList = () => {
+const AdsList = ({ searchByName }: Props) => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
 
   useEffect(() => {
@@ -20,11 +24,19 @@ const AdsList = () => {
     console.log(res);
   };
 
+  const isAdActiveFilter = advertisements.filter(
+    (advertisements) => advertisements.isAdvertisementActive === true
+  );
+
+  const nameFilter = isAdActiveFilter.filter((advertisements) =>
+    advertisements.name.toLowerCase().includes(searchByName.toLowerCase())
+  );
+
   return (
     <div className="list-items-wrap">
       <ul>
-        {advertisements.length ? (
-          advertisements.map((advertisement, index) => (
+        {nameFilter.length ? (
+          nameFilter.map((advertisement, index) => (
             <Link
               key={advertisement.id}
               to={`/product/${advertisement.id}`}
@@ -41,9 +53,17 @@ const AdsList = () => {
                 <div className="ad-list-item-name">
                   <div className="auction-title">
                     <h5>{advertisement.name}</h5>
+                    {advertisement.isAdvertisementActive}
                   </div>
                   <div className="auction-user">
-                    Ogłoszenie użytkownika: {advertisement.advertisementerEmail}
+                    <p>
+                      Ogłoszenie użytkownika:{" "}
+                      <strong>{advertisement.advertisementerEmail}</strong>
+                    </p>
+                    <p>
+                      Data wystawienia ogłoszenia:{" "}
+                      <strong>{advertisement.data}</strong>
+                    </p>
                   </div>
                 </div>
                 <div className="ad-list-item-price">

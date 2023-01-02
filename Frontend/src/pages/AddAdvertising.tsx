@@ -45,16 +45,6 @@ const AddAdvertising = () => {
     },
   };
 
-  // saveUser: async (advert: AdvertisementTypes) => {
-  //   console.log("WTF");
-  //   return axios({
-  //     method: "POST",
-  //     url: "advertisement/add/${userId}",
-  //     data: advert,
-  //     headers: {},
-  //   });
-  // },
-
   const handleAddAdSubmit = async (event: any) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
