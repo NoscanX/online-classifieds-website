@@ -1,4 +1,3 @@
-import React from "react";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -37,7 +36,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/user_ads" element={<UserAdvertisements />} />
           <Route path="/user_purchases" element={<Purchases />} />
-          <Route path="/product" element={<Product />} />
+          <Route path="/product/:advertisementId" element={<Product />} />
           <Route path="/admin_panel" element={<AdminPage />} />
         </Routes>
       </main>

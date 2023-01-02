@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 
 const imageMapper: any = {
   "C:\\fakepath\\1046021707267325962.png": require("../assets/maluch.png"),
@@ -14,7 +15,7 @@ const AdsList = () => {
   }, []);
 
   const loadAdvertisements = async () => {
-    const res = await axios.get(`advertisement/getAllAdvertisements`);
+    const res = await axios.get(`/advertisement/getAllAdvertisements`);
     setAdvertisements(res.data);
     console.log(res);
   };
@@ -24,7 +25,11 @@ const AdsList = () => {
       <ul>
         {advertisements.length ? (
           advertisements.map((advertisement, index) => (
-            <Link key={index} to="/product" rel="noopener noreferrer">
+            <Link
+              key={advertisement.id}
+              to={`/product/${advertisement.id}`}
+              rel="noopener noreferrer"
+            >
               <li key={index}>
                 <div className="ad-list-item-img">
                   <img
@@ -48,28 +53,32 @@ const AdsList = () => {
             </Link>
           ))
         ) : (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <h3
-              style={{
-                textAlign: "center",
-                marginTop: "4rem",
-                textDecoration: "underline",
-              }}
-            >
-              Wygląda na to, że nikt jeszcze nie dodał ogłoszenia.
-              <div
-                style={{
-                  marginTop: "3rem",
-                }}
-              >
-                <img src={require("../assets/3x.png")}></img>
-              </div>
-            </h3>
+          // <div
+          //   style={{
+          //     display: "flex",
+          //     flexDirection: "column",
+          //   }}
+          // >
+          //   <h3
+          //     style={{
+          //       textAlign: "center",
+          //       marginTop: "4rem",
+          //       textDecoration: "underline",
+          //     }}
+          //   >
+          //     Wygląda na to, że nikt jeszcze nie dodał ogłoszenia.
+          //     <div
+          //       style={{
+          //         marginTop: "3rem",
+          //       }}
+          //     >
+          //       <img src={require("../assets/3x.png")}></img>
+          //     </div>
+          //   </h3>
+          // </div>
+          <div className="loading">
+            <h2>Loading...</h2>
+            <Spinner animation="border" variant="primary" />
           </div>
         )}
       </ul>

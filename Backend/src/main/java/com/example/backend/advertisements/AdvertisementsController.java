@@ -51,6 +51,13 @@ public class AdvertisementsController {
         return ResponseEntity.ok(advertisementsService.getAllAdvertisements());
     }
 
+    @GetMapping("/product/getAdvertisement/{id}")
+    public ResponseEntity<AdvertisementsDTO> getAdvertisementById(@PathVariable(value = "id") Long id) {
+        Advertisements advertisements = advertisementsService.getAdvertisementById(id);
+        AdvertisementsDTO advertisementsDTO = advertisementsService.convertAdvertisementsToAdvertisementsDTO(advertisements);
+        return ResponseEntity.ok(advertisementsDTO);
+    }
+
     @GetMapping("/getAllAdvertisementsByUserId/me")
     public ResponseEntity<List<AdvertisementsDTO>> getAllAdvertisementsByUserId(Authentication authentication) {
         UserAccount loggedUser = Optional.ofNullable(authentication)

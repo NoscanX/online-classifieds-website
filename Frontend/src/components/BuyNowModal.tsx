@@ -2,6 +2,7 @@ import { Form, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 interface UserAddressTypes {
   city: string;
@@ -19,15 +20,17 @@ interface PurchaseTypes {
 
 const initialPurchaseValues = {
   //do zmiany na 0
-  advertisementId: 1,
+  advertisementId: 0,
 };
 
 const BuyNowModal = (props: any) => {
+  const { advertisementId } = useParams<any>();
+
   const [validatedAddress, setValidatedAddress] = useState<boolean>(false);
 
-  const [purchaseValues, setPurchaseValues] = useState<PurchaseTypes>(
-    initialPurchaseValues
-  );
+  const [purchaseValues, setPurchaseValues] = useState<PurchaseTypes>({
+    advertisementId: Number(advertisementId),
+  });
   const [addressValues, setAddressValues] = useState<UserAddressTypes>(
     initialUserAddressValues
   );
@@ -37,7 +40,7 @@ const BuyNowModal = (props: any) => {
       console.log("WTF");
       return axios({
         method: "POST",
-        url: `purchase/me/${purchase.advertisementId}`,
+        url: `/purchase/product/me/${advertisementId}`,
         data: purchase,
       });
     },
@@ -47,8 +50,8 @@ const BuyNowModal = (props: any) => {
     saveBuyerAddress: async (address: UserAddressTypes) => {
       console.log("WTF");
       return axios({
-        method: "POST",
-        url: `user/updateUser/me`,
+        method: "PUT",
+        url: `/user/updateUser/me`,
         data: address,
       });
     },
@@ -61,8 +64,11 @@ const BuyNowModal = (props: any) => {
       event.stopPropagation();
       setValidatedAddress(true);
       toast.error("Błędy w formularzu!");
+      console.log(advertisementId);
+      console.log(purchaseValues);
       return;
     }
+
     await postPurchaseAdd.savePurchase(purchaseValues);
     setPurchaseValues(initialPurchaseValues);
     await updateBuyerAddress.saveBuyerAddress(addressValues);
@@ -90,7 +96,7 @@ const BuyNowModal = (props: any) => {
         <Form
           noValidate
           validated={validatedAddress}
-          onSubmit={handleBuyNowSubmit}
+          // onSubmit={handleBuyNowSubmit}
         >
           <Form.Group className="mb-3" controlId="cityInput">
             <Form.Label>Miasto</Form.Label>
@@ -122,7 +128,7 @@ const BuyNowModal = (props: any) => {
               }}
             />
           </Form.Group>
-          <Button type="submit">Potwierdź zakup</Button>
+          <Button onClick={handleBuyNowSubmit}>Potwierdź zakup</Button>
         </Form>
         <div>
           <p

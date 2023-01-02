@@ -21,6 +21,7 @@ public class AdvertisementsMapper {
 
     public AdvertisementsDTO mapEntityToDTO(Advertisements dto) {
         return AdvertisementsDTO.builder()
+                .id(dto.getId())
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice())

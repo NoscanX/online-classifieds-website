@@ -14,6 +14,11 @@ public class PurchasesDTO {
     private String date;
     private Payment payment;
     private String advertisementName;
+    private String advertisementDescription;
+    private Double advertisementPrice;
+    private String advertisementImage;
+    private String advertisementDate;
+    private Boolean advertisementIsActive;
     private Long buyerId;
     private Long advertisementId;
     private Double rating;

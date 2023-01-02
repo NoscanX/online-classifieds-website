@@ -1,4 +1,3 @@
-import React from "react";
 import Categories from "../components/Categories";
 import PriceFilter from "../components/PriceFilter";
 import AdsList from "../components/AdsList";

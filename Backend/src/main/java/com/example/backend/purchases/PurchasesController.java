@@ -22,7 +22,7 @@ public class PurchasesController {
     //ratings test
     private final UserAccountRepository userAccountRepository;
 
-    @PostMapping("/me/{idAd}")
+    @PostMapping("/product/me/{idAd}")
     public ResponseEntity<?> addPurchase(Authentication authentication,@PathVariable("idAd") Long idAd, @RequestBody PurchasesDTO purchasesDTO) {
         UserAccount loggedUser = Optional.ofNullable(authentication)
                 .filter(f -> f.getPrincipal() instanceof UserWrapper)

@@ -3,6 +3,7 @@ package com.example.backend.advertisements;
 import com.example.backend.categories.Categories;
 import com.example.backend.categories.CategoriesRepository;
 import com.example.backend.users.UserAccount;
+import com.example.backend.users.UserAccountDTO;
 import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,14 @@ public class AdvertisementsService {
 //        advertisements.setCategories(category);
 //        advertisementsRepository.save(advertisements);
 //    }
+
+    public AdvertisementsDTO convertAdvertisementsToAdvertisementsDTO(Advertisements advertisements){
+        return advertisementsMapper.mapEntityToDTO(advertisements);
+    }
+
+    public Advertisements getAdvertisementById(Long id) {
+        return advertisementsRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("Ad not found"));
+    }
 
     public List<AdvertisementsDTO> getAllAdvertisements() {
         return advertisementsRepository.findAll()
