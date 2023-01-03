@@ -59,3 +59,7 @@
     margin-bottom: 4rem;
     text-align: left;
 }
+
+.delete-admin-btn {
+    text-align: right;
+}

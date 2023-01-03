@@ -38,6 +38,7 @@ function App() {
           <Route path="/user_purchases" element={<Purchases />} />
           <Route path="/product/:advertisementId" element={<Product />} />
           <Route path="/admin_panel" element={<AdminPage />} />
+          <Route path="/category/:categoryId" element={<Home />} />
         </Routes>
       </main>
       <Footer />

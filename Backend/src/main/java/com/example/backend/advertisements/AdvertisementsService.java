@@ -91,6 +91,13 @@ public class AdvertisementsService {
         advertisementsRepository.save(advertisements);
     }
 
+    public List<AdvertisementsDTO> getAllByCategoryId(Long id) {
+        return advertisementsRepository.findAllByCategoryId(id)
+                .stream()
+                .map(advertisementsMapper::mapEntityToDTO)
+                .collect(Collectors.toList());
+    }
+
     public void deleteAdvertisementById(Long advertisementsId) {
         Advertisements advertisements = advertisementsRepository.findById(advertisementsId).orElseThrow(() -> new UsernameNotFoundException("Not found"));
         advertisementsRepository.delete(advertisements);

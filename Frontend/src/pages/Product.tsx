@@ -60,7 +60,8 @@ const Product = () => {
 
   return (
     <div className="main-product-container">
-      <div>
+      <div className="delete-admin-btn">
+        <Button variant="primary">Usuń ogłoszenie</Button>
         <h2 style={{ marginBottom: "2rem" }}></h2>
       </div>
       <div className="carousel-user-content">

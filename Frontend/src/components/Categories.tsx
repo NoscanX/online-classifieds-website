@@ -25,8 +25,8 @@ const Categories = () => {
               <Popover.Body
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <Link to="/">Karty graficzne</Link>
-                <Link to="/">Telefony</Link>
+                <Link to="/category/1">Karty graficzne</Link>
+                <Link to="/category/2">Telefony</Link>
               </Popover.Body>
             </Popover>
           }

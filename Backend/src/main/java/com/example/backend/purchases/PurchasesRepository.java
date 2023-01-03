@@ -13,6 +13,7 @@ public interface PurchasesRepository extends JpaRepository<Purchases, Long> {
 
     @Query("SELECT c FROM Purchases c WHERE c.advertisements.userAccount.id=?1")
     List<Purchases> findAllByAdvertisementerId(Long id);
+
     //ratings test + RatingResponse test
 //    @Query("SELECT AVG(r.rating) FROM Purchases p JOIN Ratings r")
 //    public Double getAvgRating();

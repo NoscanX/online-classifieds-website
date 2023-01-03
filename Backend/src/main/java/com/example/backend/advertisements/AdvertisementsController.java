@@ -69,6 +69,11 @@ public class AdvertisementsController {
         return ResponseEntity.ok(advertisementsService.getAllAdvertisementsByUserId(loggedUser.getId()));
     }
 
+    @GetMapping("/getAllAdvertisementsByCategoryId/{id}")
+    public ResponseEntity<List<AdvertisementsDTO>> getAllByCategoryId(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(advertisementsService.getAllByCategoryId(id));
+    }
+
     @PutMapping("/updateAdvertisementState/{id}")
     public ResponseEntity<?> updateAdvertisementState(@PathVariable("id")Long id, @RequestParam Boolean isActive) {
         advertisementsService.updateAdvertisementState(id, isActive);

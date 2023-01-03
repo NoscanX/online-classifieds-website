@@ -4,9 +4,11 @@ import AdsList from "../components/AdsList";
 
 import "../styles/home-styles.css";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
   const [searchAdByName, setSearchAdByName] = useState<string>("");
+  const { categoryId } = useParams();
   // const handleSearch = (event: any) => {
   //   setSearchAdByName(event.target.value);
   // };
@@ -23,7 +25,7 @@ const Home = () => {
         <hr />
         <div className="ad-list-render-container">
           <h4>Dostępne ogłoszenia:</h4>
-          <AdsList searchByName={searchAdByName} />
+          <AdsList searchByName={searchAdByName} categoryId={categoryId} />
         </div>
       </div>
     </div>

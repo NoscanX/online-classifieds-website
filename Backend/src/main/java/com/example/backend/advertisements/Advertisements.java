@@ -33,7 +33,6 @@ public class Advertisements {
 
     @Lob
     @Column(name = "image", nullable = false)
-//    private byte[] image;
     private String image;
 
     @Column(name = "advertisement_date", nullable = false)

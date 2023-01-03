@@ -107,18 +107,36 @@ const AddAdvertising = () => {
     }
   };
 
-  const handleImageChange = (e: any) => {
-    setadvertisementValues((prevState) => ({
-      ...prevState,
-      image: e.target.files[0],
-    }));
+  // const handleImageChange = (e: any) => {
+  //   setadvertisementValues((prevState) => ({
+  //     ...prevState,
+  //     image: e.target.files[0],
+  //   }));
+  // };
+
+  const handleImageChange = async (e: any) => {
+    const file = e.target.files[0];
+    await convertFile(file);
+    console.log(file);
+    console.log(advertisementValues.image);
+  };
+
+  const convertFile = (file: Blob) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      setadvertisementValues({
+        ...advertisementValues,
+        image: (fileReader.result || "").toString(),
+      });
+    };
   };
 
   return (
     <div className="add-advertising-form-container">
       <Form
         noValidate
-        onSubmit={handleAddAdSubmit}
+        // onSubmit={handleAddAdSubmit}
         validated={validatedAddAd}
         style={{ width: "60%", padding: "2rem 3rem" }}
       >
@@ -200,19 +218,19 @@ const AddAdvertising = () => {
           <Form.Control
             required
             accept=".png,.jpg,.jpeg"
+            name="fileInput"
             type="file"
-            value={advertisementValues.image}
-            // onChange={(e) => handleImageChange(e)}
-            onChange={(e) => {
-              checkValue(e);
-              setadvertisementValues((prevState) => ({
-                ...prevState,
-                image: e.target.value,
-              }));
-            }}
+            onChange={(e) => handleImageChange(e)}
+            // onChange={(e) => {
+            //   checkValue(e);
+            //   setadvertisementValues((prevState) => ({
+            //     ...prevState,
+            //     image: e.target.value,
+            //   }));
+            // }}
           />
         </Form.Group>
-        <Button type="submit">Wystaw ofertę</Button>
+        <Button onClick={handleAddAdSubmit}>Wystaw ofertę</Button>
       </Form>
     </div>
   );

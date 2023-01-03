@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/admin-styles.css";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
@@ -50,16 +50,29 @@ const AdminPage = () => {
           </Form>
         </div>
         <ul>
+          <li className="label-li">
+            <div className="user-info">
+              <div>Lp.</div>
+              <div className="info">Email:</div>
+              <div className="info">Imię:</div>
+            </div>
+            <div className="buttons">
+              {/*<Button variant="primary">Nadaj rolę: USER/ADMIN</Button>*/}
+              {/*<Button variant="primary">Zablokuj/odblokuj</Button>*/}
+            </div>
+          </li>
+        </ul>
+        <ul>
           {users.length ? (
             filteredItems.map((user, index) => (
               <li key={index}>
                 <div className="user-info">
                   <div>{index + 1}</div>
-                  <div>
-                    Email: <strong>{user.email}</strong>
+                  <div className="info">
+                    <strong>{user.email}</strong>
                   </div>
-                  <div>
-                    Imię: <strong>{user.name}</strong>
+                  <div className="info">
+                    <strong>{user.name}</strong>
                   </div>
                 </div>
                 <div className="buttons">

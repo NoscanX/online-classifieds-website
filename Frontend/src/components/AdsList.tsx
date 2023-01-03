@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 
 interface Props {
   searchByName: string;
+  categoryId: number;
 }
 
 const imageMapper: any = {
   "C:\\fakepath\\1046021707267325962.png": require("../assets/maluch.png"),
 };
 
-const AdsList = ({ searchByName }: Props) => {
+const AdsList = ({ searchByName, categoryId }: Props) => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
 
   useEffect(() => {
