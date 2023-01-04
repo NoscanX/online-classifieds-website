@@ -5,7 +5,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 interface Props {
   searchByName: string;
-  categoryId: number;
+  categoryId: string | undefined;
 }
 
 const imageMapper: any = {
@@ -14,15 +14,25 @@ const imageMapper: any = {
 
 const AdsList = ({ searchByName, categoryId }: Props) => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
-
+  const [trigger, setTrigger] = useState<boolean>();
   useEffect(() => {
     loadAdvertisements();
-  }, []);
+  }, [trigger]);
 
   const loadAdvertisements = async () => {
-    const res = await axios.get(`/advertisement/getAllAdvertisements`);
-    setAdvertisements(res.data);
-    console.log(res);
+    if (categoryId) {
+      const catRes = await axios.get(
+        `/advertisement/getAllAdvertisementsByCategoryId/${categoryId}`
+      );
+      setAdvertisements(catRes.data);
+      // console.log("Po kategorii", catRes);
+      setTrigger(!trigger);
+    } else {
+      const res = await axios.get(`/advertisement/getAllAdvertisements`);
+      setAdvertisements(res.data);
+      // console.log(res);
+      setTrigger(!trigger);
+    }
   };
 
   const isAdActiveFilter = advertisements.filter(

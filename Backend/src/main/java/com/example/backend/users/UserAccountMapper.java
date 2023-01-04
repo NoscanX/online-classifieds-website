@@ -1,6 +1,7 @@
 package com.example.backend.users;
 
 import com.example.backend.advertisements.AdvertisementsMapper;
+import com.example.backend.purchases.PurchasesMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserAccountMapper {
     private final AdvertisementsMapper advertisementsMapper;
+    private final PurchasesMapper purchasesMapper;
     public UserAccountDTO mapEntityToDTO(UserAccount user) {
         return UserAccountDTO.builder()
                 .id(user.getId())
@@ -21,6 +23,7 @@ public class UserAccountMapper {
                 .userRole(user.getUserRole())
                 .isNonLocked(user.getIsUserAccountNonLocked())
 //                .advertisementsList(user.getAdvertisements().stream().map(advertisementsMapper::mapEntityToDTO).collect(Collectors.toList()))
+//                .purchasesList(user.getPurchaseses().stream().map(purchasesMapper::mapEntityToDTO).collect(Collectors.toList()))
                 .build();
     }
 

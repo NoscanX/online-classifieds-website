@@ -92,7 +92,7 @@
 }
 
 .buyer-info {
-    font-size: .9rem;
+    font-size: .8rem;
     text-align: left;
 }
 
@@ -111,4 +111,18 @@
 
 .user-ads-auction-user p {
     margin: 0;
+}
+
+.rating-box p {
+    margin: 0;
+}
+
+.rating-box label {
+    display: block;
+}
+
+.rating-box {
+    display: flex;
+    align-items: center;
+
 }

@@ -63,6 +63,22 @@ public class UserAccountService implements UserDetailsService {
         userAccountRepository.save(userAccount);
     }
 
+    public void updateUserRole(Long id) {
+        UserAccount userAccount = userAccountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (userAccount.getUserRole()==UserRole.USER) {
+            userAccount.setUserRole(UserRole.ADMIN);
+        } else {
+            userAccount.setUserRole(UserRole.USER);
+        }
+        userAccountRepository.save(userAccount);
+    }
+
+    public void banUnbanUser(Long id) {
+        UserAccount userAccount = userAccountRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        userAccount.setIsUserAccountNonLocked(!userAccount.getIsUserAccountNonLocked());
+        userAccountRepository.save(userAccount);
+    }
+
     public void deleteUserAccountById(Long id) {
         userAccountRepository.deleteById(id);
     }

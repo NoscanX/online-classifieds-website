@@ -87,14 +87,14 @@
     margin-bottom: 0;
 }
 
-.rating-box {
+.rating-box-purchases {
     font-size: .9rem;
 }
 
-.rating-box p {
+.rating-box-purchases p {
     margin: 0;
 }
 
-.rating-box label {
+.rating-box-purchases label {
     display: block;
 }

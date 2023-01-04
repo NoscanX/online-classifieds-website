@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/styles.css";
 import { ToastContainer } from "react-toastify";
 import AdminPage from "./pages/AdminPage";
+import LoginFailure from "./pages/LoginFailure";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/product/:advertisementId" element={<Product />} />
           <Route path="/admin_panel" element={<AdminPage />} />
           <Route path="/category/:categoryId" element={<Home />} />
+          <Route path="/failed" element={<LoginFailure />} />
         </Routes>
       </main>
       <Footer />

@@ -58,6 +58,13 @@ public class AdvertisementsController {
         return ResponseEntity.ok(advertisementsDTO);
     }
 
+    @GetMapping("/user_ads/getAdvertisement/{id}")
+    public ResponseEntity<AdvertisementsDTO> getAdvertisementByIdUserAds(@PathVariable(value = "id") Long id) {
+        Advertisements advertisements = advertisementsService.getAdvertisementById(id);
+        AdvertisementsDTO advertisementsDTO = advertisementsService.convertAdvertisementsToAdvertisementsDTO(advertisements);
+        return ResponseEntity.ok(advertisementsDTO);
+    }
+
     @GetMapping("/getAllAdvertisementsByUserId/me")
     public ResponseEntity<List<AdvertisementsDTO>> getAllAdvertisementsByUserId(Authentication authentication) {
         UserAccount loggedUser = Optional.ofNullable(authentication)
@@ -86,8 +93,13 @@ public class AdvertisementsController {
         return ResponseEntity.ok("Advert update ok");
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/product/delete/{id}")
     public void deleteAdvertisement(@PathVariable("id") Long id) {
+        advertisementsService.deleteAdvertisementById(id);
+    }
+
+    @DeleteMapping("/user_ads/delete/{id}")
+    public void deleteAdvertisementUserAds(@PathVariable("id") Long id) {
         advertisementsService.deleteAdvertisementById(id);
     }
 

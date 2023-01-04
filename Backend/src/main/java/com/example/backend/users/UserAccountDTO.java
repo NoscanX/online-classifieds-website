@@ -1,6 +1,8 @@
 package com.example.backend.users;
 
 import com.example.backend.advertisements.AdvertisementsDTO;
+import com.example.backend.purchases.Purchases;
+import com.example.backend.purchases.PurchasesDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,4 +22,5 @@ public class UserAccountDTO {
     private UserRole userRole;
     private Boolean isNonLocked;
     private List<AdvertisementsDTO> advertisementsList;
+//    private List<PurchasesDTO> purchasesList;
 }

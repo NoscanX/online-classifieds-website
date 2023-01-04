@@ -74,7 +74,7 @@ const Purchases = () => {
                 </div>
                 <div className="purchased-list-item-price">
                   <h5>{userPurchase.price}</h5>
-                  <div className="rating-box">
+                  <div className="rating-box-purchases">
                     <h5>Data zakupu: {userPurchase.date}</h5>
                     <p>Oceń aukcję tego użytkownika</p>
                     <Rating

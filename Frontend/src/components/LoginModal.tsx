@@ -25,7 +25,7 @@ const LoginModal = (props: any) => {
       toast.error("Błędy w formularzu!");
       return;
     }
-    toast.success("Logowanie git");
+    // toast.success("Logowanie pomyślne!");
     setTimeout(() => navigate("/", { replace: true }), 5000);
     console.log("Logowanie git");
   };

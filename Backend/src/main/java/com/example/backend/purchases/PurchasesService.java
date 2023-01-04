@@ -27,6 +27,7 @@ public class PurchasesService {
     private final PurchasesMapper purchasesMapper;
     private final UserAccountRepository userAccountRepository;
 
+
     public void addPurchase(Long userId, Long adId, PurchasesDTO purchasesDTO) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         UserAccount userAccount = userAccountRepository.findById(userId)
@@ -57,6 +58,7 @@ public class PurchasesService {
         Purchases purchases = purchasesRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Purchase not found"));
         purchases.setRating(purchasesDTO.getRating());
         purchasesRepository.save(purchases);
+        userAccountRepository.updateAvgUserRating(purchases.getAdvertisements().getUserAccount().getId());
     }
 
     public List<PurchasesDTO> getAllPurchases() {

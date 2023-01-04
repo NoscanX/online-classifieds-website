@@ -1,6 +1,7 @@
 package com.example.backend.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
     Optional<UserAccount> findUserAccountByEmail(String email);
 
-    @Query("UPDATE UserAccount SET UserAccount.userRating = (SELECT AVG(Purchases.rating) FROM Purchases WHERE Purchases.userAccount.id=?1) WHERE UserAccount.id=?1")
+    @Modifying
+    @Query("UPDATE UserAccount c SET c.userRating = (SELECT AVG(p.rating) FROM Purchases p WHERE p.advertisements.userAccount.id=?1) WHERE c.id=?1")
     public void updateAvgUserRating(Long id);
 }

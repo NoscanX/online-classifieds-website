@@ -2,10 +2,12 @@ package com.example.backend.users;
 
 import com.example.backend.advertisements.AdvertisementsDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/user")
 public class UserAccountController {
     private final UserAccountService userAccountService;
+    private final UserAccountRepository userAccountRepository;
 
     @PostMapping("/register")
     public ResponseEntity<String> saveUser(@RequestBody UserRegisterRequest request) {
@@ -45,7 +48,23 @@ public class UserAccountController {
                 .map(UserWrapper::getUserAccount)
                 .map(userAccountService::convertUserAccountToUserAccountDTO)
                 .orElse(null);
-        return ResponseEntity.ok(loggedUser);
+        UserAccount userAccount = userAccountService.getUserAccountById(loggedUser.getId());
+        UserAccountDTO userAccountDTO = userAccountService.convertUserAccountToUserAccountDTO(userAccount);
+        return ResponseEntity.ok(userAccountDTO);
+    }
+
+    @GetMapping("product/me")
+    public ResponseEntity<UserAccountDTO> getMeInProduct(Authentication authentication) {
+        UserAccountDTO loggedUser = Optional.ofNullable(authentication)
+                .filter(f -> f.getPrincipal() instanceof UserWrapper)
+                .map(Authentication::getPrincipal)
+                .map(UserWrapper.class::cast)
+                .map(UserWrapper::getUserAccount)
+                .map(userAccountService::convertUserAccountToUserAccountDTO)
+                .orElse(null);
+        UserAccount userAccount = userAccountService.getUserAccountById(loggedUser.getId());
+        UserAccountDTO userAccountDTO = userAccountService.convertUserAccountToUserAccountDTO(userAccount);
+        return ResponseEntity.ok(userAccountDTO);
     }
 
 //    @PutMapping("/updateUser/{id}")
@@ -63,6 +82,22 @@ public class UserAccountController {
                 .map(UserWrapper::getUserAccount)
                 .orElse(null);
         userAccountService.updateUserAddress(loggedUser.getId(), userAccountDTO);
+        return ResponseEntity.ok("Address update ok");
+    }
+
+    @PutMapping("/admin_panel/updateUserRole/{id}")
+    public ResponseEntity<?> updateUserRole(@PathVariable("id") Long userId) {
+        UserAccount userAccount = userAccountRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        userAccountService.updateUserRole(userId);
+        return ResponseEntity.ok("Address update ok");
+    }
+
+    @PutMapping("/admin_panel/banUnbanUser/{id}")
+    public ResponseEntity<?> updateBanUnbanUser(@PathVariable("id") Long userId) {
+        UserAccount userAccount = userAccountRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
+        userAccountService.banUnbanUser(userId);
         return ResponseEntity.ok("Address update ok");
     }
 

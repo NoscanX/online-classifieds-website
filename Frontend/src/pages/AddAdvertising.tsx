@@ -197,7 +197,7 @@ const AddAdvertising = () => {
           <h1>{advertisementValues.categoryId}</h1>
         </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Cena</Form.Label>
+          <Form.Label>Cena (zł,gr)</Form.Label>
           <Form.Control
             type="number"
             placeholder="Cena"
@@ -214,7 +214,9 @@ const AddAdvertising = () => {
           />
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
-          <Form.Label>Prześlij zdjęcie do ogłoszenia</Form.Label>
+          <Form.Label>
+            Prześlij zdjęcie do ogłoszenia (.png,.jpg,.jpeg)
+          </Form.Label>
           <Form.Control
             required
             accept=".png,.jpg,.jpeg"

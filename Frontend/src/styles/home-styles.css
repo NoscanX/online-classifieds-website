@@ -124,7 +124,7 @@
 
 .auction-user {
     color: initial;
-    height: 20%;
+    /*height: 20%;*/
     display: flex;
     flex-direction: column;
     align-items: start;

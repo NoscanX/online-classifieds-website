@@ -1,7 +1,10 @@
 package com.example.backend.categories;
 
 import com.example.backend.advertisements.AdvertisementsDTO;
+import com.example.backend.users.UserAccount;
+import com.example.backend.users.UserAccountDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,5 +29,13 @@ public class CategoriesService {
                 .stream()
                 .map(categoriesMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public Categories getCategoryById(Long id){
+        return categoriesRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
+
+    public CategoriesDTO convertCategoryToCategoryDTO(Categories categories){
+        return categoriesMapper.mapEntityToDTO(categories);
     }
 }

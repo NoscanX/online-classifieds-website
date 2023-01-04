@@ -44,20 +44,6 @@ public class AdvertisementsService {
         advertisementsRepository.save(advertisements);
     }
 
-    //image
-//    public void addAdvertisement(Long userId, Long catId, AdvertisementsDTO advertisementsDTO, MultipartFile image) throws IOException {
-//        UserAccount userAccount = userAccountRepository.findById(userId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
-//        Categories category = categoriesRepository.findById(catId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No cat"));
-//        Advertisements advertisements = advertisementsMapper.mapDTOToEntity(advertisementsDTO);
-//        advertisements.setImage(image.getInputStream().readAllBytes());
-//        advertisements.setIsAdvertisementActive(true);
-//        advertisements.setUserAccount(userAccount);
-//        advertisements.setCategories(category);
-//        advertisementsRepository.save(advertisements);
-//    }
-
     public AdvertisementsDTO convertAdvertisementsToAdvertisementsDTO(Advertisements advertisements){
         return advertisementsMapper.mapEntityToDTO(advertisements);
     }

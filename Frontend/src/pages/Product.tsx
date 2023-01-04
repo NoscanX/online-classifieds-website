@@ -1,19 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "../styles/product-styles.css";
-import { Button } from "react-bootstrap";
+import { Button, NavDropdown } from "react-bootstrap";
 import BuyNowModal from "../components/BuyNowModal";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
+import { Rating } from "@mui/material";
 
 const Product = () => {
   const [modalBuyNowShow, setBuyNowModalShow] = useState<boolean>(false);
   const { advertisementId } = useParams();
-
+  const navigate = useNavigate();
   const [advertisement, setAdvertisement] = useState<any[]>([]);
 
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const resUserMe = await axios.get(`/user/product/me`);
+    setUser(resUserMe.data);
+    console.log(resUserMe);
+  };
+
+  const deleteAdv = () => {
+    axios
+      .delete(`/advertisement/product/delete/${advertisementId}`)
+      .then((res) => {
+        toast.success("Usunięto");
+      });
+    setTimeout(() => navigate("/", { replace: true }), 20);
+  };
+
   // useEffect(() => {
-  //   loadAdvertisement();
+  //   loadAdvertisement();S
   // }, []);
   //
   // const loadAdvertisement = async () => {
@@ -45,6 +68,7 @@ const Product = () => {
     async function getObject() {
       const object = await fetchObject();
       setObject(object);
+      console.log(object);
     }
     getObject();
   }, []);
@@ -60,22 +84,37 @@ const Product = () => {
 
   return (
     <div className="main-product-container">
-      <div className="delete-admin-btn">
-        <Button variant="primary">Usuń ogłoszenie</Button>
-        <h2 style={{ marginBottom: "2rem" }}></h2>
-      </div>
+      {user.userRole === "ADMIN" && (
+        <div className="delete-admin-btn">
+          <Button variant="primary" onClick={deleteAdv}>
+            Usuń ogłoszenie
+          </Button>
+          <h2 style={{ marginBottom: "2rem" }}></h2>
+        </div>
+      )}
       <div className="carousel-user-content">
         <div className="img-holder">
           <img src={object.image} />
         </div>
         <div className="user-card">
           <div className="auction-user-details">
-            <h5>Ogłoszenie użytkownika: {object.advertisementerEmail}</h5>
-            <h5>Ocena użytkownika: {object.rate}</h5>
+            <h5>Email ogłoszeniodawcy: {object.advertisementerEmail}</h5>
+            <h5>Średnia ocena ogłoszeniodawcy:</h5>
+            <Rating
+              name="user-rating"
+              value={object.advertisementerRating}
+              precision={0.5}
+              size="large"
+              readOnly
+            />
             <h5>Data dodania ogłoszenia: {object.data}</h5>
           </div>
           <div>
-            <Button onClick={() => setBuyNowModalShow(true)}>Kup teraz</Button>
+            {user.id !== object.userId && (
+              <Button onClick={() => setBuyNowModalShow(true)}>
+                Kup teraz
+              </Button>
+            )}
           </div>
         </div>
       </div>

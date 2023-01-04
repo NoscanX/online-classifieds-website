@@ -3,13 +3,15 @@ import "../styles/user-ads-styles.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import { Rating } from "@mui/material";
+import { toast } from "react-toastify";
 
 const UserAdvertisements = () => {
   const [userAdvertisements, setUserAdvertisements] = useState<any[]>([]);
-
+  const [trigger, setTrigger] = useState<boolean>();
   useEffect(() => {
     loadUserAdvertisements();
-  }, []);
+  }, [trigger]);
 
   const loadUserAdvertisements = async () => {
     const res = await axios.get(
@@ -36,6 +38,14 @@ const UserAdvertisements = () => {
   const isAdActiveFilter = userAdvertisements.filter(
     (advertisements) => advertisements.isAdvertisementActive
   );
+
+  const deleteAdv = (e: any) => {
+    const id = e.currentTarget.dataset.id;
+    axios.delete(`/advertisement/user_ads/delete/${id}`).then((res) => {
+      toast.success("Usunięto");
+      setTrigger(!trigger);
+    });
+  };
 
   return (
     <div className="user-ads-container">
@@ -70,10 +80,13 @@ const UserAdvertisements = () => {
                   <h5>{userAdvertisement.price} zł</h5>
                   <div className="delete-box">
                     <DeleteIcon
+                      name="trash"
+                      data-id={userAdvertisement.id}
                       style={{
                         fontSize: "2rem",
                       }}
                       className="icon"
+                      onClick={deleteAdv}
                     />
                     <EditIcon
                       style={{
@@ -126,7 +139,7 @@ const UserAdvertisements = () => {
                 <div className="user-ads-list-item-price">
                   <h5>{userSoldAd.advertisementPrice} zł</h5>
                   <div className="buyer-info">
-                    <h5>Dane kupującego do wysyłki:</h5>
+                    <h6 style={{}}>Dane kupującego do wysyłki:</h6>
                     <p>
                       Imię: <strong>{userSoldAd.buyerName}</strong>
                     </p>
@@ -139,6 +152,16 @@ const UserAdvertisements = () => {
                     <p>
                       Data zakupu: <strong>{userSoldAd.date}</strong>
                     </p>
+                    <div className="rating-box">
+                      Ocena kupującego:
+                      <Rating
+                        name="user-rating"
+                        value={userSoldAd.rating}
+                        precision={0.5}
+                        size="small"
+                        readOnly
+                      />
+                    </div>
                   </div>
                 </div>
               </li>
@@ -147,11 +170,11 @@ const UserAdvertisements = () => {
             <h3
               style={{
                 textAlign: "center",
-                marginTop: "4rem",
+
                 textDecoration: "underline",
               }}
             >
-              Nie dodałeś jeszcze żadnych ogłoszeń.
+              Jeszcze nic nie zostało sprzedane.
             </h3>
           )}
         </ul>

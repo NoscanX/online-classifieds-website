@@ -31,6 +31,7 @@ public class AdvertisementsMapper {
                 .data(dto.getAdvertisementDate())
                 .userId(dto.getUserAccount().getId())
                 .advertisementerEmail(dto.getUserAccount().getEmail())
+                .advertisementerRating(dto.getUserAccount().getUserRating())
                 .categoryId(dto.getCategories().getId())
                 .build();
     }

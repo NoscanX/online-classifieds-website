@@ -60,8 +60,8 @@ const Categories = () => {
               <Popover.Body
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <a href="/123">Samochody</a>
-                <a href="/124">Motocykle</a>
+                  <Link to="/category/3">Samochody</Link>
+                  <Link to="/category/4">Motocykle</Link>
               </Popover.Body>
             </Popover>
           }
@@ -95,8 +95,8 @@ const Categories = () => {
               <Popover.Body
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                <a href="/123">Siłownia</a>
-                <a href="/124">Tenis stołowy</a>
+                  <Link to="/category/5">Siłownia</Link>
+                  <Link to="/category/6">Tenis stołowy</Link>
               </Popover.Body>
             </Popover>
           }

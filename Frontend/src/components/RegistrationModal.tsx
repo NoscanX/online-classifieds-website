@@ -28,10 +28,14 @@ const RegistrationModal = (props: any) => {
       return;
     }
 
-    console.log(registerValues);
-    await RegisterService.saveUser(registerValues);
-    setRegisterValues(initialRegisterValues);
-    toast.success("Rejestracja pomyślna!");
+    try {
+      console.log(registerValues);
+      await RegisterService.saveUser(registerValues);
+      setRegisterValues(initialRegisterValues);
+      toast.success("Rejestracja pomyślna!");
+    } catch (e) {
+      toast.error("Ten email jest zajęty!");
+    }
   };
 
   return (

@@ -1,0 +1,10 @@
+.main-failure-container {
+    /* background-color: hsl(210, 6%, 87%); */
+    background-color: hsl(210, 17%, 98%);
+    padding: 2rem 0;
+    width: 100%;
+    /* outline: 2px solid blue; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
