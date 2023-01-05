@@ -8,13 +8,10 @@ interface Props {
   categoryId: string | undefined;
 }
 
-const imageMapper: any = {
-  "C:\\fakepath\\1046021707267325962.png": require("../assets/maluch.png"),
-};
-
 const AdsList = ({ searchByName, categoryId }: Props) => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
   const [trigger, setTrigger] = useState<boolean>();
+
   useEffect(() => {
     loadAdvertisements();
   }, [trigger]);

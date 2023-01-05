@@ -7,6 +7,7 @@ import com.example.backend.users.UserAccountDTO;
 import com.example.backend.users.UserAccountRepository;
 import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,15 @@ public class AdvertisementsService {
         return advertisementsRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("Ad not found"));
     }
 
+//    public List<AdvertisementsDTO> getAllAdvertisements() {
+//        return advertisementsRepository.findAll()
+//                .stream()
+//                .map(advertisementsMapper::mapEntityToDTO)
+//                .collect(Collectors.toList());
+//    }
+
     public List<AdvertisementsDTO> getAllAdvertisements() {
-        return advertisementsRepository.findAll()
+        return advertisementsRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
                 .stream()
                 .map(advertisementsMapper::mapEntityToDTO)
                 .collect(Collectors.toList());

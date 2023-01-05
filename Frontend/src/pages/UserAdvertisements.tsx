@@ -5,10 +5,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
+import LoginModal from "../components/LoginModal";
 
 const UserAdvertisements = () => {
   const [userAdvertisements, setUserAdvertisements] = useState<any[]>([]);
   const [trigger, setTrigger] = useState<boolean>();
+  const [modalEditShow, setEditModalShow] = useState<boolean>(false);
+
   useEffect(() => {
     loadUserAdvertisements();
   }, [trigger]);
@@ -54,6 +57,10 @@ const UserAdvertisements = () => {
         <hr style={{ marginBottom: "3rem" }}></hr>
       </div>
       <div className="user-ads-list-items-wrap">
+        <LoginModal
+          show={modalEditShow}
+          onHide={() => setEditModalShow(false)}
+        />
         <ul>
           {isAdActiveFilter.length ? (
             isAdActiveFilter.map((userAdvertisement, index) => (
@@ -93,6 +100,7 @@ const UserAdvertisements = () => {
                         fontSize: "2rem",
                       }}
                       className="icon"
+                      onClick={() => setEditModalShow(true)}
                     />
                   </div>
                 </div>

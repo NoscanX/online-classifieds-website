@@ -19,9 +19,6 @@ import { USER_ROLE } from "../types/AuthorizationTypes";
 import HelpIcon from "@mui/icons-material/Help";
 
 const NavbarFunc = () => {
-  const isLoggedIn: boolean = true;
-  const isAdmin: boolean = true;
-
   const [user, setUser] = useState<any>();
 
   useEffect(() => {
@@ -40,18 +37,6 @@ const NavbarFunc = () => {
       useState<boolean>(false);
     return (
       <>
-        {/*<Nav.Link onClick={() => setRegistrationModalShow(true)}>*/}
-        {/*  Zarejestruj {user ? user.name : "ziomek"}*/}
-        {/*</Nav.Link>*/}
-        {/*<RegistrationModal*/}
-        {/*  show={modalRegistrationShow}*/}
-        {/*  onHide={() => setRegistrationModalShow(false)}*/}
-        {/*/>*/}
-        {/*<Nav.Link onClick={() => setLoginModalShow(true)}>Zaloguj</Nav.Link>*/}
-        {/*<LoginModal*/}
-        {/*  show={modalLoginShow}*/}
-        {/*  onHide={() => setLoginModalShow(false)}*/}
-        {/*/>*/}
         {user ? (
           <>
             <p
@@ -80,11 +65,6 @@ const NavbarFunc = () => {
               <NavDropdown.Item as={Link} to="/user_purchases">
                 Kupione
               </NavDropdown.Item>
-              {/*{isAdmin && (*/}
-              {/*  <NavDropdown.Item as={Link} to="/admin_panel">*/}
-              {/*    Panel admina*/}
-              {/*  </NavDropdown.Item>*/}
-              {/*)}*/}
               {user.userRole === "ADMIN" && (
                 <NavDropdown.Item as={Link} to="/admin_panel">
                   Panel admina
@@ -119,78 +99,13 @@ const NavbarFunc = () => {
         )}
         <div className="icon-wrap">
           <HelpIcon />{" "}
-          <Nav.Link as={Link} to="/">
+          <Nav.Link as={Link} to="/articles">
             Regulamin
           </Nav.Link>
         </div>
       </>
     );
   };
-
-  const LoggedUserNav = () => {
-    return (
-      <>
-        <div className="icon-wrap">
-          <AddIcon />
-        </div>
-        <Nav.Link as={Link} to="/add_advertising">
-          Dodaj ogłoszenie
-        </Nav.Link>
-        {/* <Nav.Link href="#action2">Link</Nav.Link> */}
-        <div className="icon-wrap">
-          <AccountCircleIcon />
-        </div>
-        <NavDropdown title="Twój profil" id={`offcanvasNavbarDropdown-expand`}>
-          <NavDropdown.Item as={Link} to="/user_ads">
-            Twoje ogłoszenia
-          </NavDropdown.Item>
-          <NavDropdown.Item as={Link} to="/user_purchases">
-            Kupione
-          </NavDropdown.Item>
-          {/*{isAdmin && (*/}
-          {/*  <NavDropdown.Item as={Link} to="/admin_panel">*/}
-          {/*    Panel admina*/}
-          {/*  </NavDropdown.Item>*/}
-          {/*)}*/}
-          {user.userRole === "ADMIN" && (
-            <NavDropdown.Item as={Link} to="/admin_panel">
-              Panel admina
-            </NavDropdown.Item>
-          )}
-          <NavDropdown.Divider />
-          <NavDropdown.Item
-            onClick={() => {
-              window.location.href = "http://localhost:8080/logout";
-              toast.success("Zostałeś wylogowany.");
-            }}
-          >
-            Wyloguj
-          </NavDropdown.Item>
-        </NavDropdown>
-      </>
-    );
-  };
-
-  // const NavInject = () => {
-  //   if (isLoggedIn) {
-  //     return (
-  //       <>
-  //         <LoginRegisterNav />
-  //         <LoggedUserNav />
-  //       </>
-  //     );
-  //   } else {
-  //     return <LoginRegisterNav />;
-  //   }
-  // };
-  //
-  // const NavAdminPanelOptionInject = () => {
-  //   if (isAdmin) {
-  //     return;
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
   return (
     <>
@@ -228,7 +143,6 @@ const NavbarFunc = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                {/*<NavInject />*/}
                 <LoginRegisterNav />
               </Nav>
             </Offcanvas.Body>

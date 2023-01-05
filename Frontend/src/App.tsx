@@ -13,6 +13,7 @@ import "./styles/styles.css";
 import { ToastContainer } from "react-toastify";
 import AdminPage from "./pages/AdminPage";
 import LoginFailure from "./pages/LoginFailure";
+import Articles from "./pages/Articles";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/admin_panel" element={<AdminPage />} />
           <Route path="/category/:categoryId" element={<Home />} />
           <Route path="/failed" element={<LoginFailure />} />
+          <Route path="/articles" element={<Articles />} />
         </Routes>
       </main>
       <Footer />
