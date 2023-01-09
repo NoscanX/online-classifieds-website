@@ -1,11 +1,17 @@
 import { Form, Button } from "react-bootstrap";
-import { Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface Props {
   handleSearch: Dispatch<SetStateAction<string>>;
+  filterBy: Dispatch<SetStateAction<string>>;
 }
 
-const PriceFilter = ({ handleSearch }: Props) => {
+const PriceFilter = ({ handleSearch, filterBy }: Props) => {
+  const handleFilterBy = (e: ChangeEvent<HTMLSelectElement>) => {
+    let selectedValue = e.currentTarget.value;
+    filterBy(selectedValue);
+  };
+
   return (
     <>
       <div style={{ width: "40%" }}>
@@ -23,12 +29,16 @@ const PriceFilter = ({ handleSearch }: Props) => {
       </div>
       <div style={{ width: "20%" }}>
         <h4>Filtruj</h4>
-        <Form.Select aria-label="Default select example" defaultValue={0}>
-          <option value="0">Brak filtrowania</option>
-          <option value="1">Najdroższe</option>
-          <option value="2">Najtańsze</option>
-          <option value="3">Najnowsze</option>
-          <option value="4">Najstarsze</option>
+        <Form.Select
+          aria-label="Default select example"
+          defaultValue="none"
+          onChange={handleFilterBy}
+        >
+          <option value="none">Brak filtrowania</option>
+          <option value="priceDesc">Najdroższe</option>
+          <option value="priceAsc">Najtańsze</option>
+          <option value="dateDesc">Najnowsze</option>
+          <option value="dateAsc">Najstarsze</option>
         </Form.Select>
       </div>
     </>

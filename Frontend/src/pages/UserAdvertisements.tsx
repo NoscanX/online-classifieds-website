@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/user-ads-styles.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
-import LoginModal from "../components/LoginModal";
+import AdsEditModal from "../components/AdsEditModal";
 
 const UserAdvertisements = () => {
   const [userAdvertisements, setUserAdvertisements] = useState<any[]>([]);
@@ -45,7 +45,7 @@ const UserAdvertisements = () => {
   const deleteAdv = (e: any) => {
     const id = e.currentTarget.dataset.id;
     axios.delete(`/advertisement/user_ads/delete/${id}`).then((res) => {
-      toast.success("Usunięto");
+      toast.success("Usunięto!");
       setTrigger(!trigger);
     });
   };
@@ -57,14 +57,15 @@ const UserAdvertisements = () => {
         <hr style={{ marginBottom: "3rem" }}></hr>
       </div>
       <div className="user-ads-list-items-wrap">
-        <LoginModal
-          show={modalEditShow}
-          onHide={() => setEditModalShow(false)}
-        />
         <ul>
           {isAdActiveFilter.length ? (
             isAdActiveFilter.map((userAdvertisement, index) => (
               <li key={index}>
+                <AdsEditModal
+                  show={modalEditShow}
+                  onHide={() => setEditModalShow(false)}
+                  useradvertisement={userAdvertisement.id}
+                />
                 <div className="user-ads-list-item-img">
                   <img src={userAdvertisement.image} />
                 </div>
@@ -96,6 +97,8 @@ const UserAdvertisements = () => {
                       onClick={deleteAdv}
                     />
                     <EditIcon
+                      name="edit"
+                      data-id={userAdvertisement.id}
                       style={{
                         fontSize: "2rem",
                       }}

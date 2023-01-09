@@ -90,7 +90,7 @@ public class UserAccountController {
         UserAccount userAccount = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
         userAccountService.updateUserRole(userId);
-        return ResponseEntity.ok("Address update ok");
+        return ResponseEntity.ok("Role update ok");
     }
 
     @PutMapping("/admin_panel/banUnbanUser/{id}")
@@ -98,7 +98,7 @@ public class UserAccountController {
         UserAccount userAccount = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No user"));
         userAccountService.banUnbanUser(userId);
-        return ResponseEntity.ok("Address update ok");
+        return ResponseEntity.ok("Account state update ok");
     }
 
     @DeleteMapping("/deleteUser/{id}")

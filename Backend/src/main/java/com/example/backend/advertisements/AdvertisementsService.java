@@ -3,21 +3,15 @@ package com.example.backend.advertisements;
 import com.example.backend.categories.Categories;
 import com.example.backend.categories.CategoriesRepository;
 import com.example.backend.users.UserAccount;
-import com.example.backend.users.UserAccountDTO;
 import com.example.backend.users.UserAccountRepository;
-import com.example.backend.users.UserWrapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -53,19 +47,19 @@ public class AdvertisementsService {
         return advertisementsRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("Ad not found"));
     }
 
-//    public List<AdvertisementsDTO> getAllAdvertisements() {
-//        return advertisementsRepository.findAll()
-//                .stream()
-//                .map(advertisementsMapper::mapEntityToDTO)
-//                .collect(Collectors.toList());
-//    }
-
     public List<AdvertisementsDTO> getAllAdvertisements() {
-        return advertisementsRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
+        return advertisementsRepository.findAll()
                 .stream()
                 .map(advertisementsMapper::mapEntityToDTO)
                 .collect(Collectors.toList());
     }
+
+//    public List<AdvertisementsDTO> getAllAdvertisements() {
+//        return advertisementsRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
+//                .stream()
+//                .map(advertisementsMapper::mapEntityToDTO)
+//                .collect(Collectors.toList());
+//    }
 
     public List<AdvertisementsDTO> getAllAdvertisementsByUserId(Long id) {
         return advertisementsRepository.findAllByUserAccountId(id)
@@ -74,13 +68,16 @@ public class AdvertisementsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateAdvertisementDetails(Long id, AdvertisementsDTO advertisementsDTO) {
+    public void updateAdvertisementDetails(Long id, Long catId, AdvertisementsDTO advertisementsDTO) {
+        Categories category = categoriesRepository.findById(catId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "No cat"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         Advertisements advertisements = advertisementsRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Ad not found"));
         advertisements.setName(advertisementsDTO.getName());
         advertisements.setDescription(advertisementsDTO.getDescription());
         advertisements.setPrice(advertisementsDTO.getPrice());
-//        advertisements.setImage(advertisementsDTO.getImage());
+        advertisements.setCategories(category);
+        advertisements.setImage(advertisementsDTO.getImage());
         advertisements.setAdvertisementDate(LocalDateTime.now().format(formatter));
         advertisementsRepository.save(advertisements);
     }

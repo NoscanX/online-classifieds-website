@@ -44,12 +44,13 @@
 .user-ads-list-item-img {
     width: 20%;
     position: relative;
+    border-radius: 10px;
 }
 
 .user-ads-list-item-img img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: scale-down;
     position: absolute;
 }
 

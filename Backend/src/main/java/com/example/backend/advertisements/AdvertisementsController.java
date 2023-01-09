@@ -88,8 +88,8 @@ public class AdvertisementsController {
     }
 
     @PutMapping("/updateAdvertisement/{id}")
-    public ResponseEntity<?> updateAdvertisement(@PathVariable("id") Long id, @RequestBody AdvertisementsDTO advertisementDTO) {
-        advertisementsService.updateAdvertisementDetails(id, advertisementDTO);
+    public ResponseEntity<?> updateAdvertisement(@PathVariable("id") Long id,@PathVariable("catId") Long catId, @RequestBody AdvertisementsDTO advertisementDTO) {
+        advertisementsService.updateAdvertisementDetails(id, catId, advertisementDTO);
         return ResponseEntity.ok("Advert update ok");
     }
 

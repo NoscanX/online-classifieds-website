@@ -1,25 +1,29 @@
-import { Form, Button, Modal } from "react-bootstrap";
-import React, { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
-const AdsEditModal = (props: any) => {
-  const [validatedAddAd, setValidatedAddAd] = useState<boolean>(false);
+interface Props {
+  useradvertisement: any[];
+}
 
-  // const handleAddAdSubmit = async (event: any) => {
-  //   const form = event.currentTarget;
-  //   if (form.checkValidity() === false) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //     setValidatedAddAd(true);
-  //     console.log(advertisementValues);
-  //     toast.error("Błędy w formularzu!");
-  //     return;
-  //   }
-  //   console.log(advertisementValues);
-  //   await postAd.saveAdvertisement(advertisementValues);
-  //   setadvertisementValues(initialAdvertisementValues);
-  //   toast.success("Dodano ogłoszenie.");
-  // };
+const AdsEditModal = (props: any, { useradvertisement }: Props) => {
+  const [validatedAddAd, setValidatedAddAd] = useState<boolean>(false);
+  console.log(useradvertisement);
+
+  const handleEditAdSubmit = async (event: any) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      setValidatedAddAd(true);
+      toast.error("Błędy w formularzu!");
+      return;
+    }
+    // console.log(advertisementValues);
+    // await postAd.saveAdvertisement(advertisementValues);
+    // setadvertisementValues(initialAdvertisementValues);
+    // toast.success("Dodano ogłoszenie.");
+  };
 
   return (
     <Modal

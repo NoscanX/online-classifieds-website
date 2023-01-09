@@ -51,7 +51,11 @@ const RegistrationModal = (props: any) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form noValidate validated={validatedRegistration}>
+        <Form
+          noValidate
+          validated={validatedRegistration}
+          onSubmit={handleRegistrationSubmit}
+        >
           <Form.Group className="mb-3" controlId="registrationEmailInput">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -106,7 +110,8 @@ const RegistrationModal = (props: any) => {
           {/*  <Form.Label>Adres</Form.Label>*/}
           {/*  <Form.Control required type="text" placeholder="Adres"/>*/}
           {/*</Form.Group>*/}
-          <Button onClick={handleRegistrationSubmit}>Zarejestruj</Button>
+          {/*<Button onClick={handleRegistrationSubmit}>Zarejestruj</Button>*/}
+          <Button type="submit">Zarejestruj</Button>
         </Form>
       </Modal.Body>
       <Modal.Footer>

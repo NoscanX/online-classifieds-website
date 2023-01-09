@@ -26,9 +26,8 @@ const NavbarFunc = () => {
   }, []);
 
   const getUser = async () => {
-    const resUserMe = await axios.get(`user/me`);
+    const resUserMe = await axios.get(`/user/me`);
     setUser(resUserMe.data);
-    console.log(resUserMe);
   };
 
   const LoginRegisterNav = () => {

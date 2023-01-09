@@ -2,7 +2,7 @@ import { Form, Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface UserAddressTypes {
   city: string;
@@ -25,6 +25,7 @@ const initialPurchaseValues = {
 
 const BuyNowModal = (props: any) => {
   const { advertisementId } = useParams<any>();
+  const navigate = useNavigate();
 
   const [validatedAddress, setValidatedAddress] = useState<boolean>(false);
 
@@ -74,7 +75,8 @@ const BuyNowModal = (props: any) => {
     await updateBuyerAddress.saveBuyerAddress(addressValues);
     setAddressValues(initialUserAddressValues);
 
-    toast.success("Dodano ogłoszenie.");
+    setTimeout(() => navigate("/", { replace: true }), 2000);
+    toast.success("Zakupiono!");
     console.log(purchaseValues);
     console.log(addressValues);
     console.log("addressValues");

@@ -2,19 +2,64 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import PriceFilter from "./PriceFilter";
+import priceFilter from "./PriceFilter";
 
 interface Props {
   searchByName: string;
   categoryId: string | undefined;
+  filterBy: string;
 }
 
-const AdsList = ({ searchByName, categoryId }: Props) => {
+const AdsList = ({ searchByName, filterBy, categoryId }: Props) => {
   const [advertisements, setAdvertisements] = useState<any[]>([]);
-  const [trigger, setTrigger] = useState<boolean>();
 
   useEffect(() => {
     loadAdvertisements();
-  }, [trigger]);
+  }, [categoryId]);
+
+  useEffect(() => {
+    filterAds();
+  }, [filterBy]);
+
+  useEffect(() => {}, [advertisements]);
+
+  const parseDate = (dateToParse: string) => {
+    let dateTime = dateToParse.split(" ")[1];
+    let date = dateToParse.split(" ")[0];
+    let dateDay = date.split(".")[0];
+    let dateMonth = date.split(".")[1];
+    let dateYear = date.split(".")[2];
+    return new Date(
+      `${dateYear}-${dateMonth}-${dateDay}T${dateTime}`
+    ).getTime();
+  };
+
+  const filterAds = () => {
+    let advertisementsTemp = [...advertisements];
+    switch (filterBy) {
+      case "priceDesc":
+        advertisementsTemp.sort((a, b) => b.price - a.price);
+        break;
+      case "priceAsc":
+        advertisementsTemp.sort((a, b) => a.price - b.price);
+        break;
+      case "dateDesc":
+        advertisementsTemp.sort(
+          (a, b) => parseDate(b.data) - parseDate(a.data)
+        );
+        break;
+      case "dateAsc":
+        advertisementsTemp.sort(
+          (a, b) => parseDate(a.data) - parseDate(b.data)
+        );
+        break;
+      default:
+        loadAdvertisements();
+        break;
+    }
+    setAdvertisements(advertisementsTemp);
+  };
 
   const loadAdvertisements = async () => {
     if (categoryId) {
@@ -22,13 +67,11 @@ const AdsList = ({ searchByName, categoryId }: Props) => {
         `/advertisement/getAllAdvertisementsByCategoryId/${categoryId}`
       );
       setAdvertisements(catRes.data);
-      // console.log("Po kategorii", catRes);
-      setTrigger(!trigger);
+      console.log("Po kategorii", catRes);
     } else {
       const res = await axios.get(`/advertisement/getAllAdvertisements`);
       setAdvertisements(res.data);
-      // console.log(res);
-      setTrigger(!trigger);
+      console.log(res);
     }
   };
 

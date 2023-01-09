@@ -9,6 +9,7 @@ import axios from "axios";
 
 const Home = () => {
   const [searchAdByName, setSearchAdByName] = useState<string>("");
+  const [filterBy, setFilterBy] = useState<string>("");
   const [categories, setCategories] = useState<any>();
   const { categoryId } = useParams();
   const [trigger, setTrigger] = useState<boolean>();
@@ -18,7 +19,8 @@ const Home = () => {
 
   useEffect(() => {
     loadCategory();
-  }, [trigger]);
+    console.log(categoryId);
+  }, [categoryId]);
 
   const loadCategory = async () => {
     if (categoryId) {
@@ -26,8 +28,9 @@ const Home = () => {
         `/categories/category/getCategoryById/${categoryId}`
       );
       setCategories(catRes.data);
-      setTrigger(!trigger);
       // console.log("Po kategorii", catRes);
+    } else {
+      setCategories(undefined);
     }
   };
 
@@ -39,7 +42,10 @@ const Home = () => {
 
       <div className="categories-content">
         <div className="categories-filters">
-          <PriceFilter handleSearch={setSearchAdByName} />
+          <PriceFilter
+            handleSearch={setSearchAdByName}
+            filterBy={setFilterBy}
+          />
         </div>
         <hr />
         <div className="ad-list-render-container">
@@ -56,7 +62,11 @@ const Home = () => {
               " Wszystkie"
             )}
           </h4>
-          <AdsList searchByName={searchAdByName} categoryId={categoryId} />
+          <AdsList
+            searchByName={searchAdByName}
+            categoryId={categoryId}
+            filterBy={filterBy}
+          />
         </div>
       </div>
     </div>
