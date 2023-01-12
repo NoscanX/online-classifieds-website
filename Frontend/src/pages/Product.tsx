@@ -82,11 +82,50 @@ const Product = () => {
     );
   }
 
+  if (!user) {
+    return (
+      <>
+        <div className="main-product-container">
+          <div className="carousel-user-content">
+            <div className="img-holder">
+              <img src={object.image} />
+            </div>
+            <div className="user-card">
+              <div className="auction-user-details">
+                <h5>Email ogłoszeniodawcy: {object.advertisementerEmail}</h5>
+                <h5>Średnia ocena ogłoszeniodawcy:</h5>
+                <Rating
+                  name="user-rating"
+                  value={object.advertisementerRating}
+                  precision={0.5}
+                  size="large"
+                  readOnly
+                />
+                <h5>Data dodania ogłoszenia: {object.data}</h5>
+              </div>
+              <div>
+                <h4 style={{ color: "#dc3545" }}>
+                  Musisz być zalogowany, aby dokonać zakupu.
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div className="product-description-content">
+            <h2>{object.name}</h2>
+            <h2 style={{ fontWeight: "bold" }}>{object.price} zł</h2>
+            <h5 style={{ fontWeight: "bold" }}>Opis</h5>
+            <h5>{object.description}</h5>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="main-product-container">
       {user.userRole === "ADMIN" && (
         <div className="delete-admin-btn">
-          <Button variant="primary" onClick={deleteAdv}>
+          <Button variant="danger" onClick={deleteAdv}>
             Usuń ogłoszenie
           </Button>
           <h2 style={{ marginBottom: "2rem" }}></h2>

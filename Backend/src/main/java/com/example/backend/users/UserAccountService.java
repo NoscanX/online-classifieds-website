@@ -2,6 +2,7 @@ package com.example.backend.users;
 
 import com.example.backend.advertisements.AdvertisementsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,7 +33,7 @@ public class UserAccountService implements UserDetailsService {
         userAccountRepository.save(userAccount);
     }
     public List<UserAccountDTO> getAllUsers() {
-        return userAccountRepository.findAll()
+        return userAccountRepository.findAll(Sort.by("email"))
                 .stream()
                 .map(userAccountMapper::mapEntityToDTO)
                 .collect(Collectors.toList());

@@ -87,7 +87,7 @@ public class AdvertisementsController {
         return ResponseEntity.ok("Update advert state ok");
     }
 
-    @PutMapping("/updateAdvertisement/{id}")
+    @PutMapping("/updateAdvertisement/{id}/{catId}")
     public ResponseEntity<?> updateAdvertisement(@PathVariable("id") Long id,@PathVariable("catId") Long catId, @RequestBody AdvertisementsDTO advertisementDTO) {
         advertisementsService.updateAdvertisementDetails(id, catId, advertisementDTO);
         return ResponseEntity.ok("Advert update ok");

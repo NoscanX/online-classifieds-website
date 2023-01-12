@@ -10,7 +10,7 @@ const Articles = () => {
       <div className="article-container-content">
         <ol>
           <h5>
-            <strong>Zasady publikacji Ogłoszeń</strong>
+            <strong>Zasady publikacji i wysyłki Ogłoszeń</strong>
           </h5>
           <li>
             Treść każdego Ogłoszenia powinna spełniać wymogi określone w punkcie
@@ -57,6 +57,12 @@ const Articles = () => {
               ogłoszenia pochodzące od użytkowników sieci Internet).
             </li>
           </ol>
+          <li>
+            Użytkownik wystawiający ofertę, po jej sprzedaży ma obowiązek
+            poinformować mailowo kupującego o wysyłce produktu.
+          </li>
+        </ol>
+        <ol>
           <h5>
             <strong>
               Bezprawne i niezgodne z Regulaminem działania Użytkowników

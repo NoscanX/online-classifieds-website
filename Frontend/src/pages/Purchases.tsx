@@ -43,57 +43,73 @@ const Purchases = () => {
     },
   };
 
+  const parseDate = (dateToParse: string) => {
+    let dateTime = dateToParse.split(" ")[1];
+    let date = dateToParse.split(" ")[0];
+    let dateDay = date.split(".")[0];
+    let dateMonth = date.split(".")[1];
+    let dateYear = date.split(".")[2];
+    return new Date(
+      `${dateYear}-${dateMonth}-${dateDay}T${dateTime}`
+    ).getTime();
+  };
+
   return (
     <div className="user-purchases-container">
       <div className="purchases-header-container">
         <h2 style={{ marginBottom: "3rem" }}>Lista zakupionych ofert</h2>
+        <hr />
       </div>
 
       <div className="purchased-list-items-wrap">
         <ul>
           {userPurchases.length ? (
-            userPurchases.map((userPurchase, index) => (
-              <li key={index}>
-                <div className="purchased-list-item-img">
-                  <img src={userPurchase.advertisementImage} />
-                </div>
-                <div className="purchased-list-item-name">
-                  <div className="purchased-auction-title">
-                    <h5>{userPurchase.advertisementName}</h5>
+            userPurchases
+              .sort((a, b) => parseDate(b.date) - parseDate(a.date))
+              .map((userPurchase, index) => (
+                <li key={index}>
+                  <div className="purchased-list-item-img">
+                    <img src={userPurchase.advertisementImage} />
                   </div>
-                  <div className="purchased-auction-user">
-                    <p>
-                      Ogłoszenie użytkownika:{" "}
-                      <strong>{userPurchase.advertisementerEmail}</strong>
-                    </p>
-                    <p>
-                      Data wystawienia ogłoszenia:{" "}
-                      <strong>{userPurchase.advertisementDate}</strong>
-                    </p>
+                  <div className="purchased-list-item-name">
+                    <div className="purchased-auction-title">
+                      <h5>{userPurchase.advertisementName}</h5>
+                    </div>
+                    <div className="purchased-auction-user">
+                      <p>
+                        Ogłoszenie użytkownika:{" "}
+                        <strong>{userPurchase.advertisementerEmail}</strong>
+                      </p>
+                      <p>
+                        Data wystawienia ogłoszenia:{" "}
+                        <strong>{userPurchase.advertisementDate}</strong>
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="purchased-list-item-price">
-                  <h5>{userPurchase.price}</h5>
-                  <div className="rating-box-purchases">
-                    <h5>Data zakupu: {userPurchase.date}</h5>
-                    <p>Oceń aukcję tego użytkownika</p>
-                    <Rating
-                      name="user-rating"
-                      key={userPurchase.id}
-                      value={userPurchase.rating}
-                      precision={0.5}
-                      size="large"
-                      onChange={(event, newValue) => {
-                        updatePurchaseRating.updatePurchaseRating(
-                          userPurchase.id,
-                          newValue ?? 0
-                        );
-                      }}
-                    />
+                  <div className="purchased-list-item-price">
+                    <h5>{userPurchase.price}</h5>
+                    <div className="rating-box-purchases">
+                      <h5>
+                        Data zakupu: <strong>{userPurchase.date}</strong>
+                      </h5>
+                      <p>Oceń aukcję tego użytkownika</p>
+                      <Rating
+                        name="user-rating"
+                        key={userPurchase.id}
+                        value={userPurchase.rating}
+                        precision={0.5}
+                        size="large"
+                        onChange={(event, newValue) => {
+                          updatePurchaseRating.updatePurchaseRating(
+                            userPurchase.id,
+                            newValue ?? 0
+                          );
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))
+                </li>
+              ))
           ) : (
             <h3
               style={{

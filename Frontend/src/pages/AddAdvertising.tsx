@@ -136,7 +136,7 @@ const AddAdvertising = () => {
     <div className="add-advertising-form-container">
       <Form
         noValidate
-        // onSubmit={handleAddAdSubmit}
+        onSubmit={handleAddAdSubmit}
         validated={validatedAddAd}
         style={{ width: "60%", padding: "2rem 3rem" }}
       >
@@ -194,7 +194,6 @@ const AddAdvertising = () => {
               </option>
             ))}
           </Form.Select>
-          <h1>{advertisementValues.categoryId}</h1>
         </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Cena (zł,gr)</Form.Label>
@@ -215,7 +214,7 @@ const AddAdvertising = () => {
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>
-            Prześlij zdjęcie do ogłoszenia (.png,.jpg,.jpeg)
+            Prześlij zdjęcie do ogłoszenia (.png, .jpg, .jpeg)
           </Form.Label>
           <Form.Control
             required
@@ -232,7 +231,8 @@ const AddAdvertising = () => {
             // }}
           />
         </Form.Group>
-        <Button onClick={handleAddAdSubmit}>Wystaw ofertę</Button>
+        {/*<Button onClick={handleAddAdSubmit}>Wystaw ofertę</Button>*/}
+        <Button type="submit">Wystaw ofertę</Button>
       </Form>
     </div>
   );

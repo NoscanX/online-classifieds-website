@@ -6,6 +6,7 @@ import axios from "axios";
 import { Rating } from "@mui/material";
 import { toast } from "react-toastify";
 import AdsEditModal from "../components/AdsEditModal";
+import { Link } from "react-router-dom";
 
 const UserAdvertisements = () => {
   const [userAdvertisements, setUserAdvertisements] = useState<any[]>([]);
@@ -28,7 +29,7 @@ const UserAdvertisements = () => {
 
   useEffect(() => {
     loadUserSoldAds();
-  }, []);
+  }, [trigger]);
 
   const loadUserSoldAds = async () => {
     const res = await axios.get(
@@ -50,65 +51,86 @@ const UserAdvertisements = () => {
     });
   };
 
+  const parseDate = (dateToParse: string) => {
+    let dateTime = dateToParse.split(" ")[1];
+    let date = dateToParse.split(" ")[0];
+    let dateDay = date.split(".")[0];
+    let dateMonth = date.split(".")[1];
+    let dateYear = date.split(".")[2];
+    return new Date(
+      `${dateYear}-${dateMonth}-${dateDay}T${dateTime}`
+    ).getTime();
+  };
+
   return (
     <div className="user-ads-container">
       <div className="user-ads-header-container">
         <h2>Twoje ogłoszenia</h2>
-        <hr style={{ marginBottom: "3rem" }}></hr>
+        <hr></hr>
       </div>
       <div className="user-ads-list-items-wrap">
         <ul>
           {isAdActiveFilter.length ? (
-            isAdActiveFilter.map((userAdvertisement, index) => (
-              <li key={index}>
-                <AdsEditModal
-                  show={modalEditShow}
-                  onHide={() => setEditModalShow(false)}
-                  useradvertisement={userAdvertisement.id}
-                />
-                <div className="user-ads-list-item-img">
-                  <img src={userAdvertisement.image} />
-                </div>
-                <div className="user-ads-list-item-name">
-                  <div className="user-ads-auction-title">
-                    <h5>{userAdvertisement.name}</h5>
+            isAdActiveFilter
+              .sort((a, b) => parseDate(b.data) - parseDate(a.data))
+              .map((userAdvertisement, index) => (
+                <li key={index}>
+                  {/*<AdsEditModal*/}
+                  {/*  show={modalEditShow}*/}
+                  {/*  onHide={() => setEditModalShow(false)}*/}
+                  {/*  useradvertisement={userAdvertisement.id}*/}
+                  {/*/>*/}
+                  <div className="user-ads-list-item-img">
+                    <img src={userAdvertisement.image} />
                   </div>
-                  <div className="user-ads-auction-user">
-                    <p>
-                      Ogłoszenie użytkownika:{" "}
-                      <strong>{userAdvertisement.advertisementerEmail}</strong>
-                    </p>
-                    <p>
-                      Data wystawienia ogłoszenia:{" "}
-                      <strong>{userAdvertisement.data}</strong>
-                    </p>
+                  <div className="user-ads-list-item-name">
+                    <div className="user-ads-auction-title">
+                      <h5>{userAdvertisement.name}</h5>
+                    </div>
+                    <div className="user-ads-auction-user">
+                      <p>
+                        Ogłoszenie użytkownika:{" "}
+                        <strong>
+                          {userAdvertisement.advertisementerEmail}
+                        </strong>
+                      </p>
+                      <p>
+                        Data wystawienia ogłoszenia:{" "}
+                        <strong>{userAdvertisement.data}</strong>
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="user-ads-list-item-price">
-                  <h5>{userAdvertisement.price} zł</h5>
-                  <div className="delete-box">
-                    <DeleteIcon
-                      name="trash"
-                      data-id={userAdvertisement.id}
-                      style={{
-                        fontSize: "2rem",
-                      }}
-                      className="icon"
-                      onClick={deleteAdv}
-                    />
-                    <EditIcon
-                      name="edit"
-                      data-id={userAdvertisement.id}
-                      style={{
-                        fontSize: "2rem",
-                      }}
-                      className="icon"
-                      onClick={() => setEditModalShow(true)}
-                    />
+                  <div className="user-ads-list-item-price">
+                    <h5>{userAdvertisement.price} zł</h5>
+                    <div className="delete-box">
+                      <DeleteIcon
+                        name="trash"
+                        data-id={userAdvertisement.id}
+                        style={{
+                          fontSize: "2rem",
+                        }}
+                        className="icon"
+                        onClick={deleteAdv}
+                      />
+                      <Link
+                        key={userAdvertisement.id}
+                        to={`/edit/${userAdvertisement.id}`}
+                        rel="noopener noreferrer"
+                      >
+                        <EditIcon
+                          name="edit"
+                          // data-id={userAdvertisement.id}
+                          style={{
+                            fontSize: "2rem",
+                          }}
+                          className="icon"
+                          // onClick={() => setEditModalShow(true)}
+                        />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))
+                </li>
+              ))
           ) : (
             <h3
               style={{
@@ -123,60 +145,62 @@ const UserAdvertisements = () => {
         </ul>
         <div className="user-ads-header-container">
           <h2>Sprzedane:</h2>
-          <hr style={{ marginBottom: "3rem" }}></hr>
+          <hr></hr>
         </div>
         <ul>
           {userSoldAds.length ? (
-            userSoldAds.map((userSoldAd, index) => (
-              <li key={index}>
-                <div className="user-ads-list-item-img">
-                  <img src={userSoldAd.advertisementImage} />
-                </div>
-                <div className="user-ads-list-item-name">
-                  <div className="user-ads-auction-title">
-                    <h5>{userSoldAd.advertisementName}</h5>
+            userSoldAds
+              .sort((a, b) => parseDate(b.date) - parseDate(a.date))
+              .map((userSoldAd, index) => (
+                <li key={index}>
+                  <div className="user-ads-list-item-img">
+                    <img src={userSoldAd.advertisementImage} />
                   </div>
-                  <div className="user-ads-auction-user">
-                    <p>
-                      Ogłoszenie użytkownika:{" "}
-                      <strong>{userSoldAd.advertisementerEmail}</strong>
-                    </p>
-                    <p>
-                      Data wystawienia ogłoszenia:{" "}
-                      <strong>{userSoldAd.advertisementDate}</strong>
-                    </p>
-                  </div>
-                </div>
-                <div className="user-ads-list-item-price">
-                  <h5>{userSoldAd.advertisementPrice} zł</h5>
-                  <div className="buyer-info">
-                    <h6 style={{}}>Dane kupującego do wysyłki:</h6>
-                    <p>
-                      Imię: <strong>{userSoldAd.buyerName}</strong>
-                    </p>
-                    <p>
-                      Miasto: <strong>{userSoldAd.buyerCity}</strong>
-                    </p>
-                    <p>
-                      Adres: <strong>{userSoldAd.buyerAddress}</strong>
-                    </p>
-                    <p>
-                      Data zakupu: <strong>{userSoldAd.date}</strong>
-                    </p>
-                    <div className="rating-box">
-                      Ocena kupującego:
-                      <Rating
-                        name="user-rating"
-                        value={userSoldAd.rating}
-                        precision={0.5}
-                        size="small"
-                        readOnly
-                      />
+                  <div className="user-ads-list-item-name">
+                    <div className="user-ads-auction-title">
+                      <h5>{userSoldAd.advertisementName}</h5>
+                    </div>
+                    <div className="user-ads-auction-user">
+                      <p>
+                        Ogłoszenie użytkownika:{" "}
+                        <strong>{userSoldAd.advertisementerEmail}</strong>
+                      </p>
+                      <p>
+                        Data wystawienia ogłoszenia:{" "}
+                        <strong>{userSoldAd.advertisementDate}</strong>
+                      </p>
                     </div>
                   </div>
-                </div>
-              </li>
-            ))
+                  <div className="user-ads-list-item-price">
+                    <h5>{userSoldAd.advertisementPrice} zł</h5>
+                    <div className="buyer-info">
+                      <h6 style={{}}>Dane kupującego do wysyłki:</h6>
+                      <p>
+                        Imię: <strong>{userSoldAd.buyerName}</strong>
+                      </p>
+                      <p>
+                        Miasto: <strong>{userSoldAd.buyerCity}</strong>
+                      </p>
+                      <p>
+                        Adres: <strong>{userSoldAd.buyerAddress}</strong>
+                      </p>
+                      <p>
+                        Data zakupu: <strong>{userSoldAd.date}</strong>
+                      </p>
+                      <div className="rating-box">
+                        Ocena kupującego:
+                        <Rating
+                          name="user-rating"
+                          value={userSoldAd.rating}
+                          precision={0.5}
+                          size="small"
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ))
           ) : (
             <h3
               style={{

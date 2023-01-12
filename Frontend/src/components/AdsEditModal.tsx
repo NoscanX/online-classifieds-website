@@ -35,6 +35,7 @@ const AdsEditModal = (props: any, { useradvertisement }: Props) => {
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Edytuj ogłoszenie
+          {useradvertisement}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

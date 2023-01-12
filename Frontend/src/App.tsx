@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import AdminPage from "./pages/AdminPage";
 import LoginFailure from "./pages/LoginFailure";
 import Articles from "./pages/Articles";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/product/:advertisementId" element={<Product />} />
           <Route path="/admin_panel" element={<AdminPage />} />
           <Route path="/category/:categoryId" element={<Home />} />
+          <Route path="/edit/:advertisementId" element={<Edit />} />
           <Route path="/failed" element={<LoginFailure />} />
           <Route path="/articles" element={<Articles />} />
         </Routes>

@@ -4,11 +4,15 @@
     flex-direction: column;
     background-color: hsl(210, 17%, 98%);
     min-height: 100vh;
-    padding: 2rem;
+    padding: 2rem 0;
 }
 
 .user-purchases-container h2{
     text-align: center;
+}
+
+.purchased-list-items-wrap {
+    padding: 0 2rem;
 }
 
 .purchased-list-items-wrap ul {
@@ -60,10 +64,6 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-}
-
-.purchased-list-item-price h5{
-    font-weight: bold;
 }
 
 .purchased-list-item-name,

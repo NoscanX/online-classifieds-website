@@ -1,9 +1,10 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RegistrationTypes, USER_ROLE } from "../types/AuthorizationTypes";
 import RegisterService from "../services/RegisterService";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const initialRegisterValues = {
   email: "",
@@ -17,26 +18,44 @@ const RegistrationModal = (props: any) => {
   const [registerValues, setRegisterValues] = useState<RegistrationTypes>(
     initialRegisterValues
   );
+  const [users, setUsers] = useState<any[]>([]);
+
+  const loadUsers = async () => {
+    const res = await axios.get(`/user/getAllUsers`);
+    setUsers(res.data);
+    console.log(res);
+  };
 
   const handleRegistrationSubmit = async (event: any) => {
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      users.forEach((users) => {
+        if (users.email === registerValues.email) {
+          console.log("Emaile" + users.email);
+          console.log("Email rejestracji" + registerValues.email);
+          form.checkValidity(true);
+          toast.error("Ten email jest zajęty.");
+          console.log("zajente");
+          console.log("Check " + form.checkValidity());
+        }
+      });
       setValidatedRegistration(true);
       toast.error("Błędy w formularzu!");
       return;
     }
 
-    try {
-      console.log(registerValues);
-      await RegisterService.saveUser(registerValues);
-      setRegisterValues(initialRegisterValues);
-      toast.success("Rejestracja pomyślna!");
-    } catch (e) {
-      toast.error("Ten email jest zajęty!");
-    }
+    console.log(registerValues);
+    await RegisterService.saveUser(registerValues);
+    setRegisterValues(initialRegisterValues);
+    toast.success("Rejestracja pomyślna!");
   };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
   return (
     <Modal
@@ -70,7 +89,12 @@ const RegistrationModal = (props: any) => {
                 }));
               }}
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">
+              Looks good!
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid state.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="registrationPasswordInput">
             <Form.Label>Hasło</Form.Label>

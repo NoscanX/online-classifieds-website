@@ -8,10 +8,11 @@ const Categories = () => {
   return (
     <>
       <div className="header-wrapper">
-        <h2>Kategorie</h2>
+        <h2>Internetowy serwis ogłoszeniowy</h2>
         <hr></hr>
       </div>
       <div className="bs-categories-wrapper">
+        {/*<h3>Kategorie</h3>*/}
         <OverlayTrigger
           rootClose
           trigger="click"
@@ -60,8 +61,8 @@ const Categories = () => {
               <Popover.Body
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                  <Link to="/category/3">Samochody</Link>
-                  <Link to="/category/4">Motocykle</Link>
+                <Link to="/category/3">Samochody</Link>
+                <Link to="/category/4">Motocykle</Link>
               </Popover.Body>
             </Popover>
           }
@@ -95,8 +96,8 @@ const Categories = () => {
               <Popover.Body
                 style={{ display: "flex", flexDirection: "column" }}
               >
-                  <Link to="/category/5">Siłownia</Link>
-                  <Link to="/category/6">Tenis stołowy</Link>
+                <Link to="/category/5">Siłownia</Link>
+                <Link to="/category/6">Tenis stołowy</Link>
               </Popover.Body>
             </Popover>
           }

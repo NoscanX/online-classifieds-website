@@ -57,8 +57,14 @@ const AdminPage = () => {
         <div>
           <Form
             className="d-flex"
-            style={{ width: "40%", marginBottom: "4rem" }}
+            style={{
+              width: "40%",
+              marginBottom: "4rem",
+              display: "flex",
+              flexDirection: "column",
+            }}
           >
+            <Form.Label>Wyszukaj użytkownika po e-mailu:</Form.Label>
             <Form.Control
               type="search"
               placeholder="Szukaj"
@@ -97,7 +103,32 @@ const AdminPage = () => {
                     <strong>{user.name}</strong>
                   </div>
                   <div className="info">
-                    <strong>{user.userRole}</strong>
+                    <strong>
+                      {user.userRole === "ADMIN" && (
+                        <p
+                          style={{
+                            backgroundColor: "#dc3545",
+                            width: "fit-content",
+                            padding: ".2rem .5rem",
+                            margin: "0",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          ADMIN
+                        </p>
+                      )}
+                      {user.userRole === "USER" && (
+                        <p
+                          style={{
+                            width: "fit-content",
+                            padding: ".5rem 1rem",
+                            margin: "0",
+                          }}
+                        >
+                          USER
+                        </p>
+                      )}
+                    </strong>
                   </div>
                   <div className="info">
                     <strong>

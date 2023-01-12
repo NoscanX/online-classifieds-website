@@ -20,7 +20,6 @@ import HelpIcon from "@mui/icons-material/Help";
 
 const NavbarFunc = () => {
   const [user, setUser] = useState<any>();
-
   useEffect(() => {
     getUser();
   }, []);

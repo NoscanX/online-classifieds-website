@@ -22,7 +22,7 @@ const AdsList = ({ searchByName, filterBy, categoryId }: Props) => {
     filterAds();
   }, [filterBy]);
 
-  useEffect(() => {}, [advertisements]);
+  // useEffect(() => {}, [advertisements]);
 
   const parseDate = (dateToParse: string) => {
     let dateTime = dateToParse.split(" ")[1];
