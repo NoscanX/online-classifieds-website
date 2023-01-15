@@ -6,6 +6,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    box-shadow: -1px 0px 0px 0px lightgray, 1px 0px 0px 0px lightgray;
 }
 
 .main-article-container h2{

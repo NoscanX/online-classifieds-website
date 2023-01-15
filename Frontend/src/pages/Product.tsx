@@ -92,7 +92,14 @@ const Product = () => {
             </div>
             <div className="user-card">
               <div className="auction-user-details">
-                <h5>Email ogłoszeniodawcy: {object.advertisementerEmail}</h5>
+                <h5>
+                  Imię i nazwisko ogłoszeniodawcy: <br />
+                  {object.advertisementerName}
+                </h5>
+                <h5>
+                  Email ogłoszeniodawcy: <br />
+                  {object.advertisementerEmail}
+                </h5>
                 <h5>Średnia ocena ogłoszeniodawcy:</h5>
                 <Rating
                   name="user-rating"
@@ -101,7 +108,10 @@ const Product = () => {
                   size="large"
                   readOnly
                 />
-                <h5>Data dodania ogłoszenia: {object.data}</h5>
+                <h5>
+                  Data dodania ogłoszenia: <br />
+                  {object.data}
+                </h5>
               </div>
               <div>
                 <h4 style={{ color: "#dc3545" }}>
@@ -137,7 +147,14 @@ const Product = () => {
         </div>
         <div className="user-card">
           <div className="auction-user-details">
-            <h5>Email ogłoszeniodawcy: {object.advertisementerEmail}</h5>
+            <h5>
+              Imię i nazwisko ogłoszeniodawcy: <br />
+              {object.advertisementerName}
+            </h5>
+            <h5>
+              Email ogłoszeniodawcy: <br />
+              {object.advertisementerEmail}
+            </h5>
             <h5>Średnia ocena ogłoszeniodawcy:</h5>
             <Rating
               name="user-rating"
@@ -146,7 +163,10 @@ const Product = () => {
               size="large"
               readOnly
             />
-            <h5>Data dodania ogłoszenia: {object.data}</h5>
+            <h5>
+              Data dodania ogłoszenia: <br />
+              {object.data}
+            </h5>
           </div>
           <div>
             {user.id !== object.userId && (

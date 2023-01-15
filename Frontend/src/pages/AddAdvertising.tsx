@@ -56,9 +56,9 @@ const AddAdvertising = () => {
       return;
     }
     console.log(advertisementValues);
+    toast.success("Dodano ogłoszenie.");
     await postAd.saveAdvertisement(advertisementValues);
     setadvertisementValues(initialAdvertisementValues);
-    toast.success("Dodano ogłoszenie.");
   };
 
   //types and onchange

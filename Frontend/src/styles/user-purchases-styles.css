@@ -5,6 +5,7 @@
     background-color: hsl(210, 17%, 98%);
     min-height: 100vh;
     padding: 2rem 0;
+    box-shadow: -1px 0px 0px 0px lightgray, 1px 0px 0px 0px lightgray;
 }
 
 .user-purchases-container h2{

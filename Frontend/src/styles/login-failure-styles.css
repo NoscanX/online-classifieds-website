@@ -4,7 +4,8 @@
     padding: 2rem 0;
     width: 100%;
     /* outline: 2px solid blue; */
-    min-height: 100vh;
+    min-height: 71.7vh;
     display: flex;
     flex-direction: column;
+    box-shadow: -1px 0px 0px 0px lightgray, 1px 0px 0px 0px lightgray;
 }

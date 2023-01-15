@@ -26,22 +26,27 @@ const RegistrationModal = (props: any) => {
     console.log(res);
   };
 
+  let userEmails = users.map((userEmail) => userEmail.email);
+
   const handleRegistrationSubmit = async (event: any) => {
     const form = event.currentTarget;
-
+    if (userEmails.includes(registerValues.email)) {
+      toast.error("Ten email jest zajęty.");
+      setValidatedRegistration(true);
+    }
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-      users.forEach((users) => {
-        if (users.email === registerValues.email) {
-          console.log("Emaile" + users.email);
-          console.log("Email rejestracji" + registerValues.email);
-          form.checkValidity(true);
-          toast.error("Ten email jest zajęty.");
-          console.log("zajente");
-          console.log("Check " + form.checkValidity());
-        }
-      });
+      // users.forEach((user) => {
+      //   if (user.email === registerValues.email) {
+      //     console.log("Emaile" + user.email);
+      //     console.log("Email rejestracji" + registerValues.email);
+      //     form.checkValidity(true);
+      //     toast.error("Ten email jest zajęty.");
+      //     console.log("zajente");
+      //     console.log("Check " + form.checkValidity());
+      //   }
+      // });
       setValidatedRegistration(true);
       toast.error("Błędy w formularzu!");
       return;
@@ -80,6 +85,7 @@ const RegistrationModal = (props: any) => {
             <Form.Control
               required
               type="email"
+              isInvalid={userEmails.includes(registerValues.email)}
               placeholder="name@example.com"
               value={registerValues.email}
               onChange={(e) => {
@@ -89,11 +95,8 @@ const RegistrationModal = (props: any) => {
                 }));
               }}
             />
-            <Form.Control.Feedback type="valid">
-              Looks good!
-            </Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
+              Ten email jest zajęty!
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="registrationPasswordInput">
@@ -112,11 +115,11 @@ const RegistrationModal = (props: any) => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="registrationNameInput">
-            <Form.Label>Imię</Form.Label>
+            <Form.Label>Imię i Nazwisko</Form.Label>
             <Form.Control
               required
               type="text"
-              placeholder="Imię"
+              placeholder="Imię i Nazwisko"
               value={registerValues.name}
               onChange={(e) => {
                 setRegisterValues((prevState) => ({

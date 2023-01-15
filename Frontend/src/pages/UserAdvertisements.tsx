@@ -176,7 +176,7 @@ const UserAdvertisements = () => {
                     <div className="buyer-info">
                       <h6 style={{}}>Dane kupującego do wysyłki:</h6>
                       <p>
-                        Imię: <strong>{userSoldAd.buyerName}</strong>
+                        Imię i nazwisko: <strong>{userSoldAd.buyerName}</strong>
                       </p>
                       <p>
                         Miasto: <strong>{userSoldAd.buyerCity}</strong>

@@ -7,7 +7,8 @@ const LoginFailure = () => {
       <div className="header-wrapper">
         <h2>Coś poszło nie tak.</h2>
         <h3>
-          <Link to="/">Kliknij tutaj</Link>, aby wrócić do strony głównej.
+          <Link to="/">Kliknij tutaj</Link>, aby wrócić do strony głównej i
+          spróbuj ponownie.
         </h3>
       </div>
     </div>
