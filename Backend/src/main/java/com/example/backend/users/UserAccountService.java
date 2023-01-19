@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,15 +23,22 @@ public class UserAccountService implements UserDetailsService {
     private final PasswordEncoder encoder;
     private final AdvertisementsRepository advertisementsRepository;
 
-    public void registerUser(UserRegisterRequest request){
+    public void registerUser(UserRegisterRequest request) throws UsernameNotFoundException {
         UserAccount userAccount = userAccountMapper.mapRegisterRequestToEntity(request);
         userAccount.setEmail(userAccount.getEmail());
-        userAccount.setPassword(encoder.encode(userAccount.getPassword()));
-        userAccount.setName(userAccount.getName());
-        userAccount.setUserRole(UserRole.USER);
-        userAccount.setUserRating(0.0);
-        userAccount.setIsUserAccountNonLocked(true);
-        userAccountRepository.save(userAccount);
+
+        Optional<UserAccount> existingUser = userAccountRepository.findUserAccountByEmail(userAccount.getEmail());
+        if (existingUser.isPresent()) {
+            throw new UsernameNotFoundException("Email already exists.");
+        } else {
+            userAccount.setPassword(encoder.encode(userAccount.getPassword()));
+            userAccount.setName(userAccount.getName());
+            userAccount.setUserRole(UserRole.USER);
+            userAccount.setUserRating(0.0);
+            userAccount.setIsUserAccountNonLocked(true);
+            userAccountRepository.save(userAccount);
+
+        }
     }
     public List<UserAccountDTO> getAllUsers() {
         return userAccountRepository.findAll(Sort.by("email"))

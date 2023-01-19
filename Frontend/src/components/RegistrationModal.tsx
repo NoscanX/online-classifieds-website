@@ -19,6 +19,7 @@ const RegistrationModal = (props: any) => {
     initialRegisterValues
   );
   const [users, setUsers] = useState<any[]>([]);
+  const [isBtnDisabled, setIsBtnDisabled] = useState<boolean>(true);
 
   const loadUsers = async () => {
     const res = await axios.get(`/user/getAllUsers`);
@@ -30,13 +31,13 @@ const RegistrationModal = (props: any) => {
 
   const handleRegistrationSubmit = async (event: any) => {
     const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
     if (userEmails.includes(registerValues.email)) {
-      toast.error("Ten email jest zajęty.");
+      // toast.error("Ten email jest zajęty.");
       setValidatedRegistration(true);
     }
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
       // users.forEach((user) => {
       //   if (user.email === registerValues.email) {
       //     console.log("Emaile" + user.email);
@@ -47,15 +48,23 @@ const RegistrationModal = (props: any) => {
       //     console.log("Check " + form.checkValidity());
       //   }
       // });
+      event.preventDefault();
+      event.stopPropagation();
       setValidatedRegistration(true);
       toast.error("Błędy w formularzu!");
       return;
     }
 
-    console.log(registerValues);
-    await RegisterService.saveUser(registerValues);
-    setRegisterValues(initialRegisterValues);
-    toast.success("Rejestracja pomyślna!");
+    try {
+      console.log(registerValues);
+      await RegisterService.saveUser(registerValues);
+      setRegisterValues(initialRegisterValues);
+
+      toast.success("Rejestracja pomyślna!");
+    } catch (e) {
+      console.log(e);
+      toast.error("Podany email istnieje w bazie!");
+    }
   };
 
   useEffect(() => {
@@ -79,6 +88,12 @@ const RegistrationModal = (props: any) => {
           noValidate
           validated={validatedRegistration}
           onSubmit={handleRegistrationSubmit}
+          onError={() => {
+            console.log("onError");
+          }}
+          onErrorCapture={() => {
+            console.log("onErrorCapture");
+          }}
         >
           <Form.Group className="mb-3" controlId="registrationEmailInput">
             <Form.Label>Email</Form.Label>
