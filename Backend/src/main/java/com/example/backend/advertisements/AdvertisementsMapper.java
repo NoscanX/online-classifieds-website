@@ -30,6 +30,7 @@ public class AdvertisementsMapper {
                 .isAdvertisementActive(dto.getIsAdvertisementActive())
                 .data(dto.getAdvertisementDate())
                 .userId(dto.getUserAccount().getId())
+                .advertisementerName(dto.getUserAccount().getName())
                 .advertisementerEmail(dto.getUserAccount().getEmail())
                 .advertisementerRating(dto.getUserAccount().getUserRating())
                 .categoryId(dto.getCategories().getId())
